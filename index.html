@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>CNFS Auditoria — Comparativo 1º vs 2º Turno · TSE 2026</title>
+  <title>CNFS Auditoria — Comparativo 1º vs 2º Turno por Estado e Cidade · TSE 2026</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%23090b10'/%3E%3Cpath d='M3 60a57 8.5 0 0 1 114 0' fill='none' stroke='%23f4a949' stroke-width='4' opacity='0.55'/%3E%3Cpath d='M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z' fill='%23f2ede4'/%3E%3Ccircle cx='60' cy='60' r='12.5' fill='%23f2ede4'/%3E%3Cpath d='M3 60a57 8.5 0 0 0 114 0' fill='none' stroke='%23f4a949' stroke-width='4'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -71,17 +71,17 @@
     </div>
 
     <div class="topbar-right">
-      <button class="top-action-btn" id="openTableModalBtn" title="Abrir tabela completa das 27 UFs">
+      <button class="top-action-btn" id="openTableModalBtn" title="Abrir tabela completa">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/>
         </svg>
-        <span>Tabela 27 UFs</span>
+        <span id="topTableBtnLabel">Tabela 27 UFs</span>
       </button>
       <button class="top-action-btn" id="resetBrazilBtn" title="Voltar para visão nacional">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
         </svg>
-        <span id="activeScopeLabel">Brasil · 5 Regiões</span>
+        <span id="activeScopeLabel">Brasil · 5.570 Cidades</span>
       </button>
       <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="top-action-btn share-btn">
         <span>cnfs-portfolio.vercel.app</span>
@@ -135,7 +135,7 @@
         </div>
       </div>
 
-      <!-- Mobile-friendly vote breakdown row (visible on mobile so numbers never clip) -->
+      <!-- Mobile-friendly vote breakdown row -->
       <div class="hero-mobile-votes">
         <span id="heroMobLeftVotes"><strong>Com Bio:</strong> 111.838.843 votos (2ºT)</span>
         <span id="heroMobRightVotes"><strong>Sem Bio:</strong> 15.858.427 votos (2ºT)</span>
@@ -143,7 +143,7 @@
 
       <div class="hero-bottom-meta">
         <span class="hero-status-left" id="heroSubLeft">6,75% falha na digital (4 tentativas + digital do mesário) · 5,67% sem cadastro biométrico</span>
-        <span class="hero-status-right" id="heroSubRight">100% auditado · 497.895 urnas</span>
+        <span class="hero-status-right" id="heroSubRight">100% auditado · 497.895 urnas · 5.570 cidades</span>
       </div>
     </div>
 
@@ -196,6 +196,22 @@
           <p class="big-highlight-desc" id="bigHighlightDesc">
             Nas <strong>497.895 urnas</strong>, o comparecimento subiu em <strong>+2,76 milhões</strong> de eleitores e a taxa sem biometria passou de <strong>12,35%</strong> para <strong>12,42%</strong>.
           </p>
+        </div>
+
+        <!-- Presidential 1T vs 2T Mini Card for Selected Scope (Pandora style) -->
+        <div class="scope-pres-card" id="scopePresCard">
+          <div class="spc-head">
+            <span class="spc-title" id="spcTitle">Votação Presidencial (1ºT → 2ºT)</span>
+            <span class="spc-turnout" id="spcTurnout">Abst. 20,5% → 18,6%</span>
+          </div>
+          <div class="spc-row">
+            <span class="spc-cand lula-dot">Lula (PT)</span>
+            <span class="spc-vals" id="spcLulaVals">48,43% (1ºT) → <strong>50,90% (2ºT)</strong></span>
+          </div>
+          <div class="spc-row">
+            <span class="spc-cand flavio-dot">Flávio Bolsonaro (PL)</span>
+            <span class="spc-vals" id="spcFlavioVals">43,20% (1ºT) → <strong>49,10% (2ºT)</strong></span>
+          </div>
         </div>
 
         <!-- Clean Overlapping Curve Chart -->
@@ -262,34 +278,63 @@
       </div>
     </aside>
 
-    <!-- CENTER COLUMN: REGIONAL & SUB-REGIONAL BRAZIL MAP + TIMELINE -->
+    <!-- CENTER COLUMN: INTERACTIVE DRILL-DOWN MAP (BRASIL -> ESTADO -> CIDADE) + ZOOM/PAN -->
     <section class="panel-center">
-      <!-- Top Center Floating Status Pill + Region Filters -->
+      <!-- Top Interactive Drill-Down Navigation Bar (Brasil › Estado › Cidade + Quick Search) -->
       <div class="map-top-bar">
-        <div class="map-status-pill" id="mapStatusPill">
-          <span class="status-pill-dot"></span>
-          <span class="status-pill-text" id="mapCenterBadgeText">Estabilidade 1º vs 2º Turno · R² = 0,998 · 5 Regiões &amp; 557 Microrregiões</span>
+        <div class="drilldown-bar" id="drilldownBar">
+          <button class="drill-back-btn hidden" id="drillBackBtn" title="Voltar nível anterior">
+            ← Voltar
+          </button>
+
+          <button class="drill-crumb active" id="crumbBrazilBtn" title="Visão Brasil (27 Estados)">
+            <span class="crumb-dot"></span>
+            <span>Brasil</span>
+          </button>
+
+          <span class="drill-sep">›</span>
+
+          <div class="drill-select-wrap">
+            <label for="ufDrillSelect" class="sr-only">Estado (UF)</label>
+            <select id="ufDrillSelect" class="drill-select" aria-label="1º Passo: Clique ou escolha o Estado (UF)">
+              <option value="BR">1º Passo: Escolha o Estado (27 UFs)</option>
+            </select>
+          </div>
+
+          <span class="drill-sep" id="cityDrillSep">›</span>
+
+          <div class="drill-select-wrap city-select-wrap" id="citySelectWrap">
+            <label for="cityDrillSelect" class="sr-only">Cidade (Município)</label>
+            <select id="cityDrillSelect" class="drill-select" aria-label="2º Passo: Clique ou escolha a Cidade (Município)" disabled>
+              <option value="">2º Passo: Clique num Estado p/ ver Cidades</option>
+            </select>
+          </div>
+
+          <!-- Instant City Filter Input inside Selected State -->
+          <div class="city-filter-box hidden" id="cityFilterBox">
+            <input type="search" id="cityQuickFilter" class="city-filter-input" placeholder="Buscar cidade no estado..." aria-label="Buscar cidade no estado" autocomplete="off" />
+            <div class="city-Search-dropdown hidden" id="citySearchDropdown"></div>
+          </div>
         </div>
 
-        <div class="region-filter-bar" id="regionFilterBar" aria-label="Filtrar por Macrorregião">
-          <button class="reg-chip active" data-region="ALL">Todas Regiões</button>
-          <button class="reg-chip" data-region="N">Norte</button>
-          <button class="reg-chip" data-region="NE">Nordeste</button>
-          <button class="reg-chip" data-region="CO">Centro-Oeste</button>
-          <button class="reg-chip" data-region="SE">Sudeste</button>
-          <button class="reg-chip" data-region="S">Sul</button>
-        </div>
+        <!-- Region Filters + Helper Instruction Pill -->
+        <div class="map-sub-bar">
+          <div class="region-filter-bar" id="regionFilterBar" aria-label="Filtrar por Macrorregião">
+            <button class="reg-chip active" data-region="ALL">Todas Regiões</button>
+            <button class="reg-chip" data-region="N">Norte</button>
+            <button class="reg-chip" data-region="NE">Nordeste</button>
+            <button class="reg-chip" data-region="CO">Centro-Oeste</button>
+            <button class="reg-chip" data-region="SE">Sudeste</button>
+            <button class="reg-chip" data-region="S">Sul</button>
+          </div>
 
-        <!-- Mobile Quick UF Selector (visible on mobile right below region chips) -->
-        <div class="mobile-uf-picker-row">
-          <label for="mobileUfSelect" class="mup-label">Estado (UF):</label>
-          <select id="mobileUfSelect" class="mup-select" aria-label="Selecionar Estado no Mobile">
-            <option value="BR">Brasil — Todas as 27 UFs</option>
-          </select>
+          <div class="map-hint-pill" id="mapCenterBadgeText">
+            👆 Clique primeiro no <strong>Estado</strong> e depois na <strong>Cidade</strong> · Use roda do mouse ou pinça p/ Zoom
+          </div>
         </div>
       </div>
 
-      <!-- Interactive SVG Map with 557 Microregions + 27 States + 5 Macroregion Borders -->
+      <!-- Interactive SVG Map with Smooth ViewBox Zoom/Pan + 5570 Municipalities Layer -->
       <div class="map-canvas" id="mapCanvas">
         <svg id="brazilSvg" viewBox="0 0 735 635" preserveAspectRatio="xMidYMid meet">
           <defs>
@@ -299,10 +344,12 @@
           </defs>
           <g id="mapViewport">
             <g id="microLayer"></g>
+            <g id="cityLayer"></g>
             <g id="ufBorderLayer"></g>
             <g id="regionBorderLayer"></g>
             <g id="calloutLinesLayer"></g>
             <g id="regionTitlesLayer"></g>
+            <g id="cityLabelsLayer"></g>
             <g id="ufBadgesLayer"></g>
             <g id="calloutBadgesLayer"></g>
           </g>
@@ -311,13 +358,15 @@
         <!-- Hover Tooltip -->
         <div class="map-tooltip hidden" id="mapTooltip"></div>
 
-        <!-- Map Zoom Controls -->
+        <!-- Map Zoom & Pan Controls (Pandora style on Right Side) -->
         <div class="map-zoom-controls">
-          <button class="zoom-btn" id="zoomInBtn" title="Aproximar mapa">+</button>
-          <button class="zoom-btn" id="zoomResetBtn" title="Centralizar mapa">−</button>
+          <button class="zoom-btn" id="zoomInBtn" title="Aproximar mapa (Zoom +)">+</button>
+          <button class="zoom-btn" id="zoomOutBtn" title="Afastar mapa (Zoom −)">−</button>
+          <button class="zoom-btn reset-btn" id="zoomResetBtn" title="Resetar zoom / Enquadrar">⟲</button>
+          <span class="zoom-level-badge" id="zoomLevelBadge">1.0×</span>
         </div>
 
-        <!-- OFFICIAL CNFS BASE LOGO ORBITAL SEAL OVERLAY (Bottom-Left above Legend on Desktop, Full Showcase on Mobile) -->
+        <!-- OFFICIAL CNFS BASE LOGO ORBITAL SEAL OVERLAY -->
         <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="cnfs-orbital-seal-card" title="CNFS — Jorge Confessor de Moura Junior · Natal, Brazil">
           <div class="orbital-patch">
             <svg viewBox="0 0 200 200" class="orbital-ring-svg" aria-hidden="true">
@@ -360,9 +409,9 @@
           </div>
         </a>
 
-        <!-- Map Bottom Cards Wrapper (Floating on Desktop, Cleanly Stacked on Mobile) -->
+        <!-- Map Bottom Cards Wrapper -->
         <div class="map-bottom-cards">
-          <!-- Bottom-Left Legend Card (Pandora style) -->
+          <!-- Bottom-Left Legend Card -->
           <div class="map-legend-card" id="mapLegendCard">
             <div class="legend-row">
               <span class="leg-sq left-sq" id="legSq1"></span>
@@ -380,19 +429,19 @@
                 <span style="background:#10b981"></span>
                 <span style="background:#34d399"></span>
               </div>
-              <span class="scale-caption" id="legendScaleCaption">557 microrregiões · 5 regiões · 27 UFs</span>
+              <span class="scale-caption" id="legendScaleCaption">5.570 municípios · 27 UFs</span>
             </div>
           </div>
 
-          <!-- Bottom-Right Quick Inspection Card (Pandora style) -->
+          <!-- Bottom-Right Quick Inspection Card (State / City X-Ray) -->
           <div class="map-summary-card" id="mapSummaryCard">
             <div class="msc-top">
-              <span class="msc-tag" id="mscTag">RAIO-X REGIONAL · 5 MACRORREGIÕES</span>
-              <button class="msc-btn" id="mscOpenTableBtn">Ver 27 UFs →</button>
+              <span class="msc-tag" id="mscTag">RAIO-X NACIONAL · 5.570 CIDADES</span>
+              <button class="msc-btn" id="mscOpenTableBtn">Ver Tabela →</button>
             </div>
-            <h3 class="msc-title" id="mscTitle">Brasil · 557 Microrregiões IBGE</h3>
+            <h3 class="msc-title" id="mscTitle">Brasil · 27 Estados e 5.570 Cidades</h3>
             <p class="msc-desc" id="mscDesc">
-              Toque em uma <strong>Região</strong> ou <strong>Estado</strong> no mapa para inspecionar o comparativo 1º vs 2º turno e votos após 17h00.
+              Clique primeiro em um <strong>Estado</strong> para abrir suas cidades e depois clique em qualquer <strong>Cidade (Município)</strong>.
             </p>
             <div class="msc-foot" id="mscFoot">
               <span>Fuso normalizado (UTC-3)</span>
@@ -417,25 +466,25 @@
       </div>
     </section>
 
-    <!-- RIGHT COLUMN: CLEAN TECHNICAL AUDIT FEED & STATE X-RAY -->
+    <!-- RIGHT COLUMN: STATE & CITY X-RAY + INTERACTIVE MUNICIPALITIES LIST + TECHNICAL PROOFS -->
     <aside class="panel-right">
       <div class="right-header">
         <div class="rh-title-wrap">
-          <h2 class="rh-title">Auditoria técnica</h2>
-          <span class="rh-count"><strong>5 provas</strong> · logd.dat &amp; BU</span>
+          <h2 class="rh-title" id="rightPanelTitle">Auditoria por Estado e Cidade</h2>
+          <span class="rh-count" id="rightPanelSub"><strong>5.570</strong> municípios</span>
         </div>
         <select class="uf-quick-select" id="ufSelectDropdown" aria-label="Selecionar UF">
           <option value="BR">Brasil (27 UFs)</option>
         </select>
       </div>
 
-      <!-- Selected UF / Region Compact Banner -->
+      <!-- Selected UF / City Compact Banner -->
       <div class="selected-uf-banner" id="selectedUfBanner">
         <div class="sub-top">
           <span class="sub-badge" id="xrayUfCode">BR</span>
           <div class="sub-titles">
             <strong id="xrayUfName">Brasil · Consolidado Nacional</strong>
-            <span id="xrayUfMeta">5 Regiões · 497.895 seções · Horário de Brasília (UTC-3)</span>
+            <span id="xrayUfMeta">5.570 cidades · 497.895 seções · Horário de Brasília (UTC-3)</span>
           </div>
         </div>
         <div class="sub-metrics">
@@ -454,8 +503,32 @@
         </div>
       </div>
 
+      <!-- Interactive Municipalities Explorer (Appears immediately when a State is selected!) -->
+      <div class="state-cities-panel hidden" id="stateCitiesPanel">
+        <div class="scp-header">
+          <div class="scp-title-row">
+            <strong id="scpTitle">Cidades do Estado (167)</strong>
+            <button class="scp-clear-city hidden" id="scpClearCityBtn">Ver estado inteiro</button>
+          </div>
+          <input type="search" id="scpSearchInput" class="scp-search" placeholder="Filtrar cidade (ex: Natal, Mossoró...)" aria-label="Filtrar cidade do estado" />
+        </div>
+        <div class="scp-list" id="scpCityList"></div>
+      </div>
+
       <!-- Concise Scannable Feed of Technical Evidence -->
       <div class="audit-feed" id="auditFeedList">
+        <article class="feed-item" id="ufBreakdownFeedCard">
+          <div class="feed-item-head">
+            <span class="feed-num purple">★</span>
+            <strong class="feed-title" id="ufDetailCardTitle">Raio-X Detalhado: Brasil</strong>
+            <span class="feed-pill" id="ufDetailCardPill">1ºT vs 2ºT</span>
+          </div>
+          <p class="feed-text" id="ufDetailCardBody">
+            <strong>1ºT:</strong> 109.505.685 com bio (87,65%) · 15.428.384 sem bio (12,35%).<br/>
+            <strong>2ºT:</strong> 111.838.843 com bio (87,58%) · 15.858.427 sem bio (12,42%).
+          </p>
+        </article>
+
         <article class="feed-item">
           <div class="feed-item-head">
             <span class="feed-num gold">1</span>
@@ -510,24 +583,12 @@
             No 2º turno, <strong>8.615.564 (6,75%)</strong> tinham biometria mas falharam 4x no leitor (exigindo a digital do mesário na urna) e <strong>7.242.863 (5,67%)</strong> não tinham biometria cadastrada.
           </p>
         </article>
-
-        <article class="feed-item" id="ufBreakdownFeedCard">
-          <div class="feed-item-head">
-            <span class="feed-num purple">6</span>
-            <strong class="feed-title" id="ufDetailCardTitle">Raio-X Detalhado: Brasil</strong>
-            <span class="feed-pill" id="ufDetailCardPill">1ºT vs 2ºT</span>
-          </div>
-          <p class="feed-text" id="ufDetailCardBody">
-            <strong>1ºT:</strong> 109.505.685 com bio (87,65%) · 15.428.384 sem bio (12,35%).<br/>
-            <strong>2ºT:</strong> 111.838.843 com bio (87,58%) · 15.858.427 sem bio (12,42%).
-          </p>
-        </article>
       </div>
 
       <!-- Bottom Action Footer -->
       <div class="right-footer">
         <button class="full-table-trigger" id="openTableFooterBtn">
-          <span>Consultar tabela auditada das 27 UFs e 5 Regiões</span>
+          <span id="footerTableBtnLabel">Consultar tabela auditada (27 UFs e 5.570 Cidades)</span>
           <span>↗</span>
         </button>
       </div>
@@ -571,23 +632,27 @@
   <footer class="bottom-statusbar">
     <div class="bs-left">
       <span class="bs-live-dot"></span>
-      <span><strong>497.895 urnas auditadas</strong> · 27 UFs · 5 Macrorregiões · 557 Microrregiões IBGE</span>
+      <span><strong>497.895 urnas auditadas</strong> · 27 UFs · 5.570 Municípios (Cidades) IBGE</span>
     </div>
     <div class="bs-right">
       <span>Dados oficiais do TSE (BU + logd.dat) · Apresentado por <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener">CNFS (Jorge Confessor)</a></span>
     </div>
   </footer>
 
-  <!-- MODAL: FULL 27-UF & 5-REGION SORTABLE TABLE -->
+  <!-- MODAL: FULL SORTABLE TABLE (27 UFs OR MUNICIPALITIES OF SELECTED UF) -->
   <div class="modal-backdrop hidden" id="tableModalBackdrop">
     <div class="modal-dialog">
       <div class="modal-header">
         <div>
-          <h2 class="modal-title">Auditoria Completa por Estado (27 UFs) — 1º vs 2º Turno</h2>
-          <p class="modal-sub">Comparecimento, Habilitação Biométrica, Falha de Leitura (4x), Sem Cadastro e Votos Após 17h00 (BRT)</p>
+          <h2 class="modal-title" id="modalTableTitle">Auditoria Completa por Estado (27 UFs) — 1º vs 2º Turno</h2>
+          <p class="modal-sub" id="modalTableSub">Comparecimento, Habilitação Biométrica, Falha de Leitura (4x), Sem Cadastro e Votos Após 17h00 (BRT)</p>
         </div>
         <div class="modal-actions">
-          <input type="search" id="modalUfSearch" placeholder="Filtrar UF ou região..." class="modal-search" />
+          <div class="modal-scope-switch" id="modalScopeSwitch">
+            <button class="mss-btn active" id="modalShowUfsBtn">27 Estados</button>
+            <button class="mss-btn" id="modalShowCitiesBtn">Cidades do Estado</button>
+          </div>
+          <input type="search" id="modalUfSearch" placeholder="Filtrar estado ou cidade..." class="modal-search" />
           <button class="modal-close" id="closeTableModalBtn">✕ Fechar</button>
         </div>
       </div>
@@ -595,9 +660,9 @@
         <table class="uf-table" id="ufFullTable">
           <thead>
             <tr>
-              <th data-sort="uf">UF</th>
-              <th data-sort="regiao">Região</th>
-              <th data-sort="fuso">Fuso</th>
+              <th data-sort="nome">Localidade</th>
+              <th data-sort="regiao">Região / UF</th>
+              <th data-sort="secoes_2t">Seções</th>
               <th data-sort="comp_1t">Votos 1ºT</th>
               <th data-sort="comp_2t">Votos 2ºT</th>
               <th data-sort="pct_com_bio_1t">% Bio 1ºT</th>
@@ -605,8 +670,8 @@
               <th data-sort="pct_sem_bio_1t">% Sem Bio 1ºT</th>
               <th data-sort="pct_sem_bio_2t">% Sem Bio 2ºT</th>
               <th data-sort="delta_sb_pp">Δ Sem Bio (p.p.)</th>
-              <th data-sort="biom_sem_hab_2t">Falha 4x (2ºT)</th>
-              <th data-sort="sem_cad_2t">Sem Cad. (2ºT)</th>
+              <th data-sort="lula_2t_p">Lula 2ºT</th>
+              <th data-sort="flavio_2t_p">Bolsonaro 2ºT</th>
               <th data-sort="votos_ap_17h_2t">Votos &gt;17h BRT</th>
               <th data-sort="pct_ap_17h_2t">% &gt;17h BRT</th>
             </tr>
