@@ -86,7 +86,6 @@
     return sign + val.toFixed(d).replace(".", ",");
   };
 
-  // Regional distinct color palettes so the 5 Macroregions & 557 Microregions are visually rich
   const REGION_BASE_HUES = {
     N:  ["#064e3b", "#047857", "#059669", "#10b981", "#34d399"],
     NE: ["#0c4a6e", "#0369a1", "#0284c7", "#0ea5e9", "#38bdf8"],
@@ -97,7 +96,6 @@
 
   function getMicroFill(m) {
     if (state.mode === "biometria") {
-      // Rich regional + sub-regional shading based on biometric rate (75% -> 96%)
       const v = m.bio_2t;
       const palette = REGION_BASE_HUES[m.region] || REGION_BASE_HUES.N;
       if (v >= 92.5) return palette[4];
@@ -113,7 +111,6 @@
       if (p >= 0.015) return "#0d9488";
       return "#065f46";
     } else {
-      // Presidente 1º vs 2ºT (Pandora red vs blue choropleth)
       const l = m.lula_2t;
       if (l >= 68) return "#991b1b";
       if (l >= 58) return "#dc2626";
@@ -135,7 +132,6 @@
     }
   }
 
-  // Render the Multi-Layered SVG Map (557 Microregions + 27 UFs + 5 Macroregions + Pills)
   function renderMap() {
     const microLayer = document.getElementById("microLayer");
     const ufBorderLayer = document.getElementById("ufBorderLayer");
@@ -155,7 +151,6 @@
 
     const ns = "http://www.w3.org/2000/svg";
 
-    // 1. 557 Microregions mosaic
     MICROS.forEach((m) => {
       const p = document.createElementNS(ns, "path");
       p.setAttribute("d", m.path);
@@ -178,7 +173,6 @@
       microLayer.appendChild(p);
     });
 
-    // 2. 27 State Borders
     UFS.forEach((u) => {
       const p = document.createElementNS(ns, "path");
       p.setAttribute("d", u.path);
@@ -193,7 +187,6 @@
       ufBorderLayer.appendChild(p);
     });
 
-    // 3. 5 Macroregion Borders + Labels
     Object.values(REGIONS).forEach((r) => {
       const p = document.createElementNS(ns, "path");
       p.setAttribute("d", r.path);
@@ -204,7 +197,6 @@
       );
       regionBorderLayer.appendChild(p);
 
-      // Subtle Macroregion Watermark Label
       const txt = document.createElementNS(ns, "text");
       txt.setAttribute("x", r.cx);
       txt.setAttribute("y", r.cy - 18);
@@ -213,7 +205,6 @@
       regionTitlesLayer.appendChild(txt);
     });
 
-    // 4. State Pills & Right-side Callout Badges
     UFS.forEach((u) => {
       const labelText = getUfBadgeText(u);
       const isSelected = state.selectedUf === u.uf;
@@ -253,7 +244,6 @@
       rect.setAttribute("height", h);
       rect.setAttribute("class", "uf-pill-rect");
 
-      // Color indicator dot for Presidente mode or Pos17h mode
       if (state.mode === "resultado") {
         rect.style.stroke = u.lula_2t_p >= 50 ? "rgba(239,68,68,0.65)" : "rgba(59,130,246,0.65)";
       }
@@ -283,10 +273,9 @@
     });
   }
 
-  // Tooltip
   const tooltipEl = document.getElementById("mapTooltip");
   function showTooltip(e, u, micro) {
-    if (!u) return;
+    if (!u || window.innerWidth <= 1024) return;
     const microLine = micro
       ? `<div style="color:#6ee7b7;font-weight:700;font-size:10.5px;margin-bottom:2px;">Microrregião: ${micro.name} (${fmtPct(micro.bio_2t)}% bio)</div>`
       : "";
@@ -323,17 +312,16 @@
     tooltipEl.classList.add("hidden");
   }
 
-  // Stability Overlapping Line Chart (Left Column)
   function renderStabilityChart() {
     const svg = document.getElementById("stabilityChart");
     if (!svg) return;
     const sorted = [...UFS].sort((a, b) => a.pct_com_bio_1t - b.pct_com_bio_1t);
     const W = 260;
-    const H = 108;
+    const H = 102;
     const padL = 26;
     const padR = 8;
     const padT = 10;
-    const padB = 14;
+    const padB = 12;
     const minY = 76;
     const maxY = 96;
 
@@ -355,7 +343,6 @@
     `;
   }
 
-  // Update Hero Bar, Left Panel, Map Cards & Right Panel based on current selection & mode
   function updateDashboardUI() {
     let target = NATIONAL;
     if (state.selectedUf && UF_MAP[state.selectedUf]) {
@@ -386,12 +373,10 @@
       };
     }
 
-    // Scope button label
     document.getElementById("activeScopeLabel").textContent =
       state.selectedUf ? `${target.nome} (${target.uf})` :
       state.selectedRegion !== "ALL" ? target.nome : "Brasil · 5 Regiões";
 
-    // Hero Banner update
     const heroHeadline = document.getElementById("heroHeadline");
     const heroLeftTitle = document.getElementById("heroLeftTitle");
     const heroLeftBadge = document.getElementById("heroLeftBadge");
@@ -405,6 +390,8 @@
     const heroBarRightPct = document.getElementById("heroBarRightPct");
     const heroBarRightVotes = document.getElementById("heroBarRightVotes");
     const heroDividerText = document.getElementById("heroDividerText");
+    const heroMobLeftVotes = document.getElementById("heroMobLeftVotes");
+    const heroMobRightVotes = document.getElementById("heroMobRightVotes");
 
     if (state.mode === "biometria") {
       heroLeftTitle.textContent = "Com Biometria";
@@ -422,6 +409,9 @@
       heroBarRightPct.innerHTML = `${fmtPct(target.pct_sem_bio_2t)}<small>%</small>`;
       heroBarRightVotes.textContent = `${fmtInt(target.sem_bio_2t)} votos`;
       heroDividerText.textContent = `Δ ${fmtSigned(target.delta_sb_pp)} p.p.`;
+
+      if (heroMobLeftVotes) heroMobLeftVotes.innerHTML = `<strong>Com Bio:</strong> ${fmtInt(target.com_bio_2t)} votos`;
+      if (heroMobRightVotes) heroMobRightVotes.innerHTML = `<strong>Sem Bio:</strong> ${fmtInt(target.sem_bio_2t)} votos`;
     } else if (state.mode === "pos17h") {
       const pctBefore = round2(100 - target.pct_ap_17h_2t);
       const votosBefore = target.comp_2t - target.votos_ap_17h_2t;
@@ -431,15 +421,18 @@
       heroRightBadge.textContent = "Fila c/ Senha";
       heroHeadline.innerHTML = `<span class="hl-accent">${fmtInt(target.votos_ap_17h_2t)} votos após 17h BRT</span> (${fmtPct(target.pct_ap_17h_2t, 3)}% do total)`;
 
-      heroBarLeft.style.width = "84%";
-      heroBarRight.style.width = "16%";
-      heroBarDivider.style.left = "84%";
+      heroBarLeft.style.width = "82%";
+      heroBarRight.style.width = "18%";
+      heroBarDivider.style.left = "82%";
 
       heroBarLeftPct.innerHTML = `${fmtPct(pctBefore, 3)}<small>%</small>`;
       heroBarLeftVotes.textContent = `${fmtInt(votosBefore)} votos até 17:00:00 (Horário de Brasília)`;
       heroBarRightPct.innerHTML = `${fmtPct(target.pct_ap_17h_2t, 3)}<small>%</small>`;
       heroBarRightVotes.textContent = `${fmtInt(target.votos_ap_17h_2t)} votos`;
       heroDividerText.textContent = "Fuso UTC-3";
+
+      if (heroMobLeftVotes) heroMobLeftVotes.innerHTML = `<strong>Até 17h:</strong> ${fmtInt(votosBefore)} votos`;
+      if (heroMobRightVotes) heroMobRightVotes.innerHTML = `<strong>Pós-17h:</strong> ${fmtInt(target.votos_ap_17h_2t)} votos`;
     } else {
       const l2 = target.lula_2t_p || NATIONAL.lula_2t_p;
       const f2 = target.flavio_2t_p || NATIONAL.flavio_2t_p;
@@ -460,16 +453,17 @@
       heroBarRightPct.innerHTML = `${fmtPct(f2)}<small>%</small>`;
       heroBarRightVotes.textContent = `${fmtInt(fv)} votos`;
       heroDividerText.textContent = "50%";
+
+      if (heroMobLeftVotes) heroMobLeftVotes.innerHTML = `<strong>Lula:</strong> ${fmtInt(lv)} votos`;
+      if (heroMobRightVotes) heroMobRightVotes.innerHTML = `<strong>Bolsonaro:</strong> ${fmtInt(fv)} votos`;
     }
 
-    // Left Column Top Numbers
     document.getElementById("duelVal1").textContent = `${fmtPct(target.pct_com_bio_1t)}%`;
     document.getElementById("duelVal2").textContent = `${fmtPct(target.pct_com_bio_2t)}%`;
     document.getElementById("bigHighlightNum").textContent = `${fmtPct(Math.abs(target.delta_sb_pp))} p.p.`;
     document.getElementById("bigHighlightDesc").innerHTML =
       `Em <strong>${target.nome}</strong>, a habilitação sem biometria variou de <strong>${fmtPct(target.pct_sem_bio_1t)}%</strong> (1ºT) para <strong>${fmtPct(target.pct_sem_bio_2t)}%</strong> (2ºT), com <strong>${fmtInt(target.votos_ap_17h_2t)} votos</strong> após 17h BRT.`;
 
-    // Center Map Status Pill & Bottom-Right Map Summary Card
     document.getElementById("mapCenterBadgeText").textContent =
       state.selectedUf
         ? `${target.nome} (${target.uf}) · Região ${target.regiao} · Bio 2ºT ${fmtPct(target.pct_com_bio_2t)}%`
@@ -490,7 +484,6 @@
     document.getElementById("mscFoot").innerHTML =
       `<span>${target.fuso.split(" ")[0]}</span><strong>${fmtInt(target.votos_ap_17h_2t)} votos &gt;17h (${fmtPct(target.pct_ap_17h_2t, 3)}%)</strong>`;
 
-    // Right Column Selected UF Banner & Card #6
     document.getElementById("xrayUfCode").textContent = target.uf;
     document.getElementById("xrayUfName").textContent = target.nome;
     document.getElementById("xrayUfMeta").textContent = `${fmtInt(target.secoes_2t)} seções · ${target.fuso}`;
@@ -509,13 +502,21 @@
     return Math.round(v * 1000) / 1000;
   }
 
+  function syncDropdowns() {
+    const val = state.selectedUf || "BR";
+    const sel1 = document.getElementById("ufSelectDropdown");
+    const sel2 = document.getElementById("mobileUfSelect");
+    if (sel1) sel1.value = val;
+    if (sel2) sel2.value = val;
+  }
+
   function selectUf(uf) {
     if (state.selectedUf === uf) {
       state.selectedUf = null;
     } else {
       state.selectedUf = uf;
     }
-    document.getElementById("ufSelectDropdown").value = state.selectedUf || "BR";
+    syncDropdowns();
     renderMap();
     updateDashboardUI();
   }
@@ -523,7 +524,7 @@
   function selectRegion(regCode) {
     state.selectedRegion = regCode;
     state.selectedUf = null;
-    document.getElementById("ufSelectDropdown").value = "BR";
+    syncDropdowns();
     document.querySelectorAll("#regionFilterBar .reg-chip").forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.region === regCode);
     });
@@ -531,7 +532,6 @@
     updateDashboardUI();
   }
 
-  // Timeline Bar initialization
   function initTimeline() {
     const nodesContainer = document.getElementById("tlNodes");
     nodesContainer.innerHTML = "";
@@ -554,24 +554,35 @@
     });
   }
 
-  // Populate UF Select Dropdown & Full 27-UF Modal Table
   function initDropdownAndModal() {
     const sel = document.getElementById("ufSelectDropdown");
+    const mobSel = document.getElementById("mobileUfSelect");
+
     UFS.forEach((u) => {
-      const opt = document.createElement("option");
-      opt.value = u.uf;
-      opt.textContent = `${u.uf} — ${u.nome} (${u.regiao})`;
-      sel.appendChild(opt);
-    });
-    sel.addEventListener("change", () => {
-      if (sel.value === "BR") {
-        state.selectedUf = null;
-      } else {
-        state.selectedUf = sel.value;
+      const opt1 = document.createElement("option");
+      opt1.value = u.uf;
+      opt1.textContent = `${u.uf} — ${u.nome} (${u.regiao})`;
+      sel.appendChild(opt1);
+
+      if (mobSel) {
+        const opt2 = document.createElement("option");
+        opt2.value = u.uf;
+        opt2.textContent = `${u.uf} — ${u.nome} (Região ${u.regiao} · ${Math.round(u.pct_com_bio_2t)}% bio)`;
+        mobSel.appendChild(opt2);
       }
+    });
+
+    const handleSelectChange = (val) => {
+      state.selectedUf = val === "BR" ? null : val;
+      syncDropdowns();
       renderMap();
       updateDashboardUI();
-    });
+    };
+
+    sel.addEventListener("change", () => handleSelectChange(sel.value));
+    if (mobSel) {
+      mobSel.addEventListener("change", () => handleSelectChange(mobSel.value));
+    }
 
     renderModalTable();
 
@@ -641,9 +652,7 @@
     });
   }
 
-  // Wire up interactive controls
   function initControls() {
-    // Mode tabs
     document.querySelectorAll("#modeTabs .mode-pill").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.mode = btn.dataset.mode;
@@ -655,14 +664,12 @@
       });
     });
 
-    // Region filter chips
     document.querySelectorAll("#regionFilterBar .reg-chip").forEach((btn) => {
       btn.addEventListener("click", () => {
         selectRegion(btn.dataset.region);
       });
     });
 
-    // Reset button & background click
     document.getElementById("resetBrazilBtn").addEventListener("click", () => {
       selectRegion("ALL");
     });
@@ -673,12 +680,10 @@
       }
     });
 
-    // Left column growth bars click
     document.querySelectorAll(".gbar-row[data-uf]").forEach((row) => {
       row.addEventListener("click", () => selectUf(row.dataset.uf));
     });
 
-    // Zoom controls
     const viewport = document.getElementById("mapViewport");
     document.getElementById("zoomInBtn").addEventListener("click", () => {
       state.zoom = Math.min(1.6, +(state.zoom + 0.2).toFixed(2));
@@ -692,7 +697,6 @@
       viewport.removeAttribute("transform");
     });
 
-    // Modal triggers
     const modal = document.getElementById("tableModalBackdrop");
     ["openTableModalBtn", "openTableFooterBtn", "mscOpenTableBtn"].forEach((id) => {
       const el = document.getElementById(id);
@@ -706,7 +710,6 @@
     });
   }
 
-  // Boot
   renderStabilityChart();
   initTimeline();
   initDropdownAndModal();

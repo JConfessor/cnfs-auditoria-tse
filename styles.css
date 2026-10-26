@@ -11,6 +11,10 @@
   --text-secondary: #a1a8b8;
   --text-muted: #697182;
 
+  --cnfs-star: #f2ede4;
+  --cnfs-accretion: #f4a949;
+  --cnfs-dust: #8e8a84;
+
   --accent-emerald: #10b981;
   --accent-emerald-light: #34d399;
   --accent-emerald-dark: #065f46;
@@ -26,6 +30,11 @@
 
   --font-serif: 'Newsreader', 'Instrument Serif', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 * {
@@ -48,11 +57,11 @@ html, body {
 }
 
 /* =========================================================
-   1. TOP NAVIGATION BAR (PANDORA STYLE)
+   1. TOP NAVIGATION BAR WITH OFFICIAL CNFS BASE LOGO
    ========================================================= */
 .topbar {
-  height: 44px;
-  min-height: 44px;
+  height: 48px;
+  min-height: 48px;
   padding: 0 18px;
   display: flex;
   align-items: center;
@@ -65,40 +74,62 @@ html, body {
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--cnfs-star);
+  padding: 4px 10px 4px 6px;
+  border-radius: 10px;
+  background: rgba(244, 169, 73, 0.05);
+  border: 1px solid rgba(244, 169, 73, 0.18);
+  transition: all 0.2s ease;
 }
 
-.cnfs-icon {
-  width: 24px;
-  height: 24px;
+.brand-logo:hover {
+  background: rgba(244, 169, 73, 0.1);
+  border-color: rgba(244, 169, 73, 0.38);
+}
+
+.cnfs-emblem-wrap {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
 }
 
-.brand-serif {
-  font-family: var(--font-serif);
-  font-size: 23px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  line-height: 1;
+.cnfs-emblem-svg {
+  width: 28px;
+  height: 28px;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(244, 169, 73, 0.35));
+  transition: transform 0.5s ease;
+}
+
+.brand-logo:hover .cnfs-emblem-svg {
+  transform: rotate(-22deg);
+}
+
+.cnfs-wordmark-svg {
+  height: 13px;
+  width: auto;
+  color: var(--cnfs-star);
+  display: block;
 }
 
 .brand-sub {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--accent-emerald-light);
   background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.28);
   padding: 2px 7px;
   border-radius: 999px;
 }
@@ -124,6 +155,7 @@ html, body {
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.16s ease;
+  white-space: nowrap;
 }
 
 .mode-pill:hover {
@@ -139,23 +171,39 @@ html, body {
 .topbar-center {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
   font-size: 11.5px;
   color: var(--text-muted);
 }
 
-.presented-brand {
-  color: var(--text-primary);
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 0.03em;
+.presented-brand-pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 7px;
+  padding: 4px 11px 4px 8px;
+  border-radius: 999px;
+  background: rgba(242, 237, 228, 0.05);
+  border: 1px solid rgba(244, 169, 73, 0.28);
+  text-decoration: none;
+  transition: all 0.18s ease;
 }
 
-.presented-brand span {
-  color: var(--accent-emerald-light);
+.presented-brand-pill:hover {
+  background: rgba(244, 169, 73, 0.12);
+  border-color: rgba(244, 169, 73, 0.5);
+}
+
+.cnfs-mini-emblem {
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px rgba(244, 169, 73, 0.35));
+}
+
+.cnfs-mini-wordmark {
+  height: 10.5px;
+  width: auto;
+  display: block;
 }
 
 .topbar-right {
@@ -179,6 +227,7 @@ html, body {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .top-action-btn:hover {
@@ -188,15 +237,15 @@ html, body {
 }
 
 .top-action-btn.share-btn {
-  color: var(--accent-emerald-light);
-  border-color: rgba(16, 185, 129, 0.25);
+  color: var(--cnfs-accretion);
+  border-color: rgba(244, 169, 73, 0.3);
 }
 
 /* =========================================================
    2. HERO COMPARISON BAR (PANDORA STYLE)
    ========================================================= */
 .hero-banner {
-  margin: 8px 14px 6px;
+  margin: 7px 14px 6px;
   background: linear-gradient(90deg, rgba(6, 78, 59, 0.35) 0%, rgba(17, 21, 30, 0.95) 50%, rgba(120, 53, 15, 0.32) 100%);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-bottom: 2px solid var(--accent-emerald);
@@ -216,8 +265,8 @@ html, body {
 }
 
 .hero-avatar {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -242,12 +291,14 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  min-width: 0;
 }
 
 .hero-top-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  gap: 8px;
 }
 
 .hero-title-group {
@@ -375,6 +426,10 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
 }
 
+.hero-mobile-votes {
+  display: none;
+}
+
 .hero-bottom-meta {
   display: flex;
   align-items: center;
@@ -417,7 +472,7 @@ html, body {
 .left-section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .section-title-group {
@@ -443,7 +498,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 0 2px;
+  padding: 4px 0 2px;
 }
 
 .duel-side {
@@ -563,7 +618,7 @@ html, body {
 
 #stabilityChart {
   width: 100%;
-  height: 82px;
+  height: 78px;
   display: block;
 }
 
@@ -640,10 +695,6 @@ html, body {
   color: var(--text-secondary);
 }
 
-.growth-header.mt {
-  margin-top: 4px;
-}
-
 .dot-sm {
   width: 7px;
   height: 7px;
@@ -686,7 +737,7 @@ html, body {
   color: var(--text-primary);
 }
 
-.gbar-footnote, .gbar-empty {
+.gbar-footnote {
   font-size: 11px;
   color: var(--text-muted);
 }
@@ -705,15 +756,17 @@ html, body {
 
 .map-top-bar {
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 15;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   pointer-events: none;
+  width: max-content;
+  max-width: 96%;
 }
 
 .map-status-pill {
@@ -738,6 +791,7 @@ html, body {
   border-radius: 50%;
   background: var(--accent-emerald-light);
   box-shadow: 0 0 8px var(--accent-emerald-light);
+  flex-shrink: 0;
 }
 
 .region-filter-bar {
@@ -763,6 +817,7 @@ html, body {
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .reg-chip:hover {
@@ -773,6 +828,10 @@ html, body {
   background: rgba(16, 185, 129, 0.22);
   color: #6ee7b7;
   border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.mobile-uf-picker-row {
+  display: none;
 }
 
 .map-canvas {
@@ -837,7 +896,6 @@ html, body {
   opacity: 0.22 !important;
 }
 
-/* Subtle Macroregion Labels inside Map */
 .region-map-label {
   font-family: var(--font-sans);
   font-size: 10px;
@@ -849,7 +907,6 @@ html, body {
   pointer-events: none;
 }
 
-/* State Pill Badges on Map (Pandora style) */
 .uf-pill-group {
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.18s ease;
@@ -890,6 +947,85 @@ html, body {
   pointer-events: none;
 }
 
+/* OFFICIAL CNFS BASE LOGO ORBITAL SEAL OVERLAY ON MAP */
+.cnfs-orbital-seal-card {
+  position: absolute;
+  left: 16px;
+  top: 64px;
+  z-index: 14;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 14px 8px 8px;
+  border-radius: 14px;
+  background: rgba(11, 14, 21, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(244, 169, 73, 0.32);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cnfs-orbital-seal-card:hover {
+  border-color: rgba(244, 169, 73, 0.65);
+  transform: translateY(-1px);
+}
+
+.orbital-patch {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.orbital-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: spinSlow 28s linear infinite;
+}
+
+.orbital-ring-text {
+  fill: var(--cnfs-dust);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.orbital-core-svg {
+  width: 26px;
+  height: 26px;
+  overflow: visible;
+  filter: drop-shadow(0 0 12px rgba(244, 169, 73, 0.45));
+}
+
+.orbital-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.orbital-wordmark {
+  height: 12px;
+  width: auto;
+  display: block;
+}
+
+.orbital-author {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--cnfs-accretion);
+}
+
+.orbital-sub {
+  font-size: 9.5px;
+  color: var(--text-secondary);
+}
+
 /* Map Zoom Controls */
 .map-zoom-controls {
   position: absolute;
@@ -920,11 +1056,21 @@ html, body {
   background: #1f2737;
 }
 
-/* Bottom-Left Compact Legend Card (Pandora style) */
-.map-legend-card {
+/* Bottom-Left & Bottom-Right Cards Wrapper */
+.map-bottom-cards {
   position: absolute;
   left: 16px;
+  right: 16px;
   bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.map-legend-card {
+  pointer-events: auto;
   background: rgba(13, 17, 25, 0.92);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
@@ -933,7 +1079,6 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  z-index: 12;
   min-width: 235px;
 }
 
@@ -984,11 +1129,8 @@ html, body {
   color: var(--text-muted);
 }
 
-/* Bottom-Right Quick Summary Card on Map (Pandora style) */
 .map-summary-card {
-  position: absolute;
-  right: 16px;
-  bottom: 14px;
+  pointer-events: auto;
   width: 256px;
   background: rgba(13, 17, 25, 0.92);
   backdrop-filter: blur(10px);
@@ -998,7 +1140,6 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  z-index: 12;
 }
 
 .msc-top {
@@ -1176,6 +1317,7 @@ html, body {
   padding: 4px 11px;
   border-radius: 999px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .live-dot {
@@ -1268,6 +1410,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .sub-titles {
@@ -1424,6 +1567,11 @@ html, body {
   background: #1d2434;
 }
 
+/* Mobile CNFS Showcase (Hidden on Desktop, Displayed on Mobile/Tablet) */
+.mobile-cnfs-showcase {
+  display: none;
+}
+
 /* =========================================================
    7. BOTTOM STATUS BAR & MODAL
    ========================================================= */
@@ -1495,6 +1643,8 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .modal-title {
@@ -1540,6 +1690,7 @@ html, body {
 .modal-table-wrap {
   flex: 1;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .uf-table {
@@ -1572,6 +1723,7 @@ html, body {
   text-align: right;
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .uf-table td:first-child,
@@ -1583,4 +1735,457 @@ html, body {
 .uf-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
+}
+
+/* =========================================================
+   8. SUPER-RESPONSIVE MOBILE & TABLET DESIGN (<= 1024px)
+   ========================================================= */
+@media (max-width: 1024px) {
+  html, body {
+    height: auto;
+    min-height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* Responsive Header with CNFS Base Logo prominent */
+  .topbar {
+    height: auto;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .topbar-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    width: 100%;
+    justify-content: space-between;
+    padding: 7px 12px 7px 10px;
+    background: linear-gradient(90deg, rgba(244, 169, 73, 0.1) 0%, rgba(18, 22, 32, 0.95) 100%);
+    border: 1px solid rgba(244, 169, 73, 0.35);
+    border-radius: 12px;
+  }
+
+  .cnfs-emblem-wrap, .cnfs-emblem-svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cnfs-wordmark-svg {
+    height: 17px;
+  }
+
+  .brand-sub {
+    margin-left: auto;
+    font-size: 10px;
+    padding: 3px 9px;
+  }
+
+  .topbar-center {
+    display: none;
+  }
+
+  .mode-pills {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    padding: 4px;
+    border-radius: 11px;
+  }
+
+  .mode-pill {
+    text-align: center;
+    padding: 7px 4px;
+    font-size: 11px;
+    border-radius: 8px;
+  }
+
+  .topbar-right {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .top-action-btn {
+    justify-content: center;
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .top-action-btn.share-btn {
+    display: none;
+  }
+
+  /* Responsive Hero Banner */
+  .hero-banner {
+    margin: 6px 10px;
+    padding: 11px 12px 10px;
+    border-radius: 13px;
+  }
+
+  .hero-side {
+    display: none;
+  }
+
+  .hero-top-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 6px;
+  }
+
+  .hero-center-headline {
+    order: -1;
+    width: 100%;
+    font-size: 18.5px;
+    line-height: 1.2;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .hero-title-group {
+    gap: 5px;
+  }
+
+  .hero-side-name {
+    font-size: 12.5px;
+  }
+
+  .hero-side-tag {
+    font-size: 10px;
+    padding: 1px 6px;
+  }
+
+  .hero-progress-track {
+    height: 32px;
+    margin-top: 2px;
+  }
+
+  .hero-bar-fill {
+    padding: 0 10px;
+  }
+
+  .hero-bar-fill.left-fill {
+    flex: 1;
+  }
+
+  .hero-bar-fill.right-fill {
+    min-width: 96px;
+    justify-content: flex-end;
+  }
+
+  .bar-votes {
+    display: none;
+  }
+
+  .bar-pct {
+    font-size: 15.5px;
+  }
+
+  .hero-bar-divider {
+    left: calc(100% - 96px) !important;
+  }
+
+  .divider-pill {
+    font-size: 9.5px;
+    padding: 2px 6px;
+  }
+
+  .hero-mobile-votes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-secondary);
+    padding-top: 4px;
+  }
+
+  .hero-mobile-votes strong {
+    color: #ffffff;
+  }
+
+  .hero-bottom-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    font-size: 10.5px;
+    line-height: 1.35;
+    padding-top: 2px;
+  }
+
+  /* Stack 3 Columns cleanly with Map First on Mobile! */
+  .dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 10px 14px;
+    border-top: none;
+  }
+
+  .panel-center {
+    order: 1;
+    border-radius: 14px;
+    border: 1px solid var(--border-medium);
+    overflow: visible;
+    background: radial-gradient(circle at 50% 38%, #151c2c 0%, #0b0e15 80%);
+  }
+
+  .panel-left {
+    order: 2;
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    padding: 16px 14px;
+    overflow: visible;
+  }
+
+  .panel-right {
+    order: 3;
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    overflow: visible;
+  }
+
+  /* Map Top Controls Stacked Cleanly on Mobile */
+  .map-top-bar {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 10px 4px;
+    align-items: stretch;
+    gap: 7px;
+  }
+
+  .map-status-pill {
+    justify-content: center;
+    text-align: center;
+    font-size: 10.5px;
+    padding: 5px 10px;
+  }
+
+  /* 3x2 Touch Grid for all 6 Region Filters on Mobile so none are cut off */
+  .region-filter-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .reg-chip {
+    padding: 5px 4px;
+    font-size: 10.5px;
+    text-align: center;
+    border-radius: 7px;
+  }
+
+  .mobile-uf-picker-row {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(17, 22, 33, 0.95);
+    border: 1px solid var(--border-medium);
+    border-radius: 10px;
+    padding: 6px 10px;
+  }
+
+  .mup-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-emerald-light);
+    white-space: nowrap;
+  }
+
+  .mup-select {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+  }
+
+  .mup-select option {
+    background: #0f131c;
+    color: #ffffff;
+  }
+
+  /* Map Canvas on Mobile: Show Orbital Seal Banner + Full Width SVG + Cards Stacked Below */
+  .map-canvas {
+    flex-direction: column;
+    padding: 4px 8px 10px;
+    height: auto;
+  }
+
+  #brazilSvg {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    aspect-ratio: 735 / 635;
+  }
+
+  .cnfs-orbital-seal-card {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin-bottom: 4px;
+    justify-content: flex-start;
+    padding: 7px 12px;
+    background: rgba(13, 17, 26, 0.95);
+  }
+
+  .orbital-patch {
+    width: 48px;
+    height: 48px;
+  }
+
+  .orbital-core-svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .map-zoom-controls {
+    top: 68px;
+    right: 12px;
+    left: auto;
+    bottom: auto;
+    flex-direction: row;
+  }
+
+  .map-bottom-cards {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .map-legend-card,
+  .map-summary-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .timeline-bar {
+    padding: 8px 12px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .tl-clock {
+    font-size: 12px;
+  }
+
+  .tl-live-pill {
+    margin-left: auto;
+    font-size: 10.5px;
+    padding: 3px 9px;
+  }
+
+  .tl-track-container {
+    order: 3;
+    width: 100%;
+    flex: none;
+  }
+
+  /* Right Panel Feed on Mobile */
+  .audit-feed {
+    overflow: visible;
+    padding: 8px 12px 12px;
+  }
+
+  /* Official CNFS Base Logo Showcase Card on Mobile */
+  .mobile-cnfs-showcase {
+    display: block;
+    padding: 0 10px 14px;
+  }
+
+  .mcs-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(20, 24, 34, 0.98) 0%, rgba(12, 14, 20, 0.98) 100%);
+    border: 1px solid rgba(244, 169, 73, 0.38);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+  }
+
+  .mcs-seal {
+    position: relative;
+    width: 74px;
+    height: 74px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .mcs-seal .orbital-core-svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .mcs-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mcs-kicker {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--cnfs-accretion);
+  }
+
+  .mcs-wordmark {
+    height: 16px;
+    width: auto;
+    align-self: flex-start;
+  }
+
+  .mcs-name {
+    font-size: 11.5px;
+    color: var(--cnfs-star);
+    font-weight: 600;
+  }
+
+  .mcs-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-emerald-light);
+  }
+
+  .bottom-statusbar {
+    height: auto;
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .modal-backdrop {
+    padding: 10px;
+  }
 }

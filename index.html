@@ -2,31 +2,47 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>CNFS Auditoria — Comparativo 1º vs 2º Turno · TSE 2026</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='26' fill='%23090b10'/%3E%3Cpath d='M3 60a57 8.5 0 0 1 114 0' fill='none' stroke='%23f4a949' stroke-width='4' opacity='0.55'/%3E%3Cpath d='M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z' fill='%23f2ede4'/%3E%3Ccircle cx='60' cy='60' r='12.5' fill='%23f2ede4'/%3E%3Cpath d='M3 60a57 8.5 0 0 0 114 0' fill='none' stroke='%23f4a949' stroke-width='4'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- TOP NAVIGATION BAR -->
+  <!-- TOP NAVIGATION BAR WITH OFFICIAL CNFS BASE LOGO -->
   <header class="topbar">
     <div class="topbar-left">
-      <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="brand-logo" title="CNFS Portfolio">
-        <svg class="cnfs-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1.5" y="1.5" width="33" height="33" rx="8" stroke="url(#cnfsGrad)" stroke-width="2" fill="#0d111a" />
-          <path d="M10 13.5L18 9L26 13.5V22.5L18 27L10 22.5V13.5Z" stroke="url(#cnfsGrad)" stroke-width="1.8" fill="rgba(16,185,129,0.08)" />
-          <path d="M14.5 18L17 20.5L22 15.5" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-          <defs>
-            <linearGradient id="cnfsGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#34d399" />
-              <stop offset="100%" stop-color="#3b82f6" />
-            </linearGradient>
-          </defs>
+      <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="brand-logo" title="CNFS — Jorge Confessor de Moura Junior">
+        <span class="cnfs-emblem-wrap">
+          <svg viewBox="0 0 120 120" class="cnfs-emblem-svg" role="img" aria-label="CNFS Emblem">
+            <defs>
+              <mask id="cnfs-top-rear" maskUnits="userSpaceOnUse" x="-10" y="-10" width="140" height="140">
+                <rect x="-10" y="-10" width="140" height="140" fill="#fff"></rect>
+                <circle cx="60" cy="60" r="18" fill="#000"></circle>
+                <path d="M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z" fill="#000" stroke="#000" stroke-width="6" stroke-linejoin="round"></path>
+              </mask>
+              <mask id="cnfs-top-front" maskUnits="userSpaceOnUse" x="-10" y="-10" width="140" height="140">
+                <rect x="-10" y="-10" width="140" height="140" fill="#fff"></rect>
+                <path d="M3 60a57 8.5 0 0 0 114 0" fill="none" stroke="#000" stroke-width="9.5"></path>
+              </mask>
+            </defs>
+            <path d="M3 60a57 8.5 0 0 1 114 0" fill="none" stroke="#f4a949" stroke-width="4.2" stroke-linecap="round" opacity="0.58" mask="url(#cnfs-top-rear)"></path>
+            <g fill="#f2ede4" mask="url(#cnfs-top-front)">
+              <path d="M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z"></path>
+              <circle cx="60" cy="60" r="12.5"></circle>
+            </g>
+            <path d="M3 60a57 8.5 0 0 0 114 0" fill="none" stroke="#f4a949" stroke-width="4.2" stroke-linecap="round"></path>
+          </svg>
+        </span>
+        <svg viewBox="0 0 484 100" fill="currentColor" class="cnfs-wordmark-svg" role="img" aria-label="CNFS">
+          <path d="M118 0H50a50 50 0 0 0 0 100h68V87H50a37 37 0 0 1 0-74h68Z"></path>
+          <path d="M136 100V0h15.3L227 83.2V0h13v100h-15.3L149 16.8V100Z"></path>
+          <path d="M258 100V0h92v13h-79v30.5h65v13h-65V100Z"></path>
+          <path d="M484 0h-87.75a28.25 28.25 0 0 0 0 56.5h59.5a15.25 15.25 0 0 1 0 30.5H368v13h87.75a28.25 28.25 0 0 0 0-56.5h-59.5a15.25 15.25 0 0 1 0-30.5H484Z"></path>
         </svg>
-        <span class="brand-serif">cnfs</span>
-        <span class="brand-sub">auditoria</span>
+        <span class="brand-sub">Auditoria TSE</span>
       </a>
 
       <nav class="mode-pills" id="modeTabs" aria-label="Modo de visualização">
@@ -38,8 +54,19 @@
 
     <div class="topbar-center">
       <span class="presented-label">Apresentado por</span>
-      <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="presented-brand">
-        CNFS <span>✦</span>
+      <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="presented-brand-pill" title="Portfólio Oficial CNFS">
+        <svg viewBox="0 0 120 120" class="cnfs-mini-emblem" aria-hidden="true">
+          <path d="M3 60a57 8.5 0 0 1 114 0" fill="none" stroke="#f4a949" stroke-width="5" opacity="0.55"></path>
+          <path d="M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z" fill="#f2ede4"></path>
+          <circle cx="60" cy="60" r="13" fill="#f2ede4"></circle>
+          <path d="M3 60a57 8.5 0 0 0 114 0" fill="none" stroke="#f4a949" stroke-width="5"></path>
+        </svg>
+        <svg viewBox="0 0 484 100" fill="#f2ede4" class="cnfs-mini-wordmark" aria-label="CNFS">
+          <path d="M118 0H50a50 50 0 0 0 0 100h68V87H50a37 37 0 0 1 0-74h68Z"></path>
+          <path d="M136 100V0h15.3L227 83.2V0h13v100h-15.3L149 16.8V100Z"></path>
+          <path d="M258 100V0h92v13h-79v30.5h65v13h-65V100Z"></path>
+          <path d="M484 0h-87.75a28.25 28.25 0 0 0 0 56.5h59.5a15.25 15.25 0 0 1 0 30.5H368v13h87.75a28.25 28.25 0 0 0 0-56.5h-59.5a15.25 15.25 0 0 1 0-30.5H484Z"></path>
+        </svg>
       </a>
     </div>
 
@@ -57,19 +84,19 @@
         <span id="activeScopeLabel">Brasil · 5 Regiões</span>
       </button>
       <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="top-action-btn share-btn">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
-        </svg>
         <span>cnfs-portfolio.vercel.app</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M7 17L17 7M8 7h9v9"/>
+        </svg>
       </a>
     </div>
   </header>
 
-  <!-- TOP HERO COMPARISON BAR (PANDORA STYLE) -->
+  <!-- TOP HERO COMPARISON BAR (PANDORA STYLE, RESPONSIVE FOR MOBILE & DESKTOP) -->
   <section class="hero-banner" id="heroBanner">
     <div class="hero-side hero-side-left">
       <div class="hero-avatar hero-avatar-left" id="heroIconLeft">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
         </svg>
       </div>
@@ -108,6 +135,12 @@
         </div>
       </div>
 
+      <!-- Mobile-friendly vote breakdown row (visible on mobile so numbers never clip) -->
+      <div class="hero-mobile-votes">
+        <span id="heroMobLeftVotes"><strong>Com Bio:</strong> 111.838.843 votos (2ºT)</span>
+        <span id="heroMobRightVotes"><strong>Sem Bio:</strong> 15.858.427 votos (2ºT)</span>
+      </div>
+
       <div class="hero-bottom-meta">
         <span class="hero-status-left" id="heroSubLeft">6,75% falha na digital (4 tentativas + digital do mesário) · 5,67% sem cadastro biométrico</span>
         <span class="hero-status-right" id="heroSubRight">100% auditado · 497.895 urnas</span>
@@ -116,14 +149,14 @@
 
     <div class="hero-side hero-side-right">
       <div class="hero-avatar hero-avatar-right" id="heroIconRight">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2M7 16h10"/>
         </svg>
       </div>
     </div>
   </section>
 
-  <!-- 3-COLUMN DASHBOARD WORKSPACE -->
+  <!-- 3-COLUMN DASHBOARD WORKSPACE (RESPONSIVE STACK ON MOBILE) -->
   <main class="dashboard-grid">
     <!-- LEFT COLUMN: CONSISTENCY & "O QUE MUDOU DESDE O 1º TURNO" -->
     <aside class="panel-left">
@@ -167,7 +200,7 @@
 
         <!-- Clean Overlapping Curve Chart -->
         <div class="mini-chart-wrap">
-          <svg id="stabilityChart" viewBox="0 0 260 108" preserveAspectRatio="none"></svg>
+          <svg id="stabilityChart" viewBox="0 0 260 102" preserveAspectRatio="none"></svg>
           <div class="chart-axis-labels">
             <span>AC · Norte</span>
             <span>27 UFs (1ºT vs 2ºT)</span>
@@ -225,12 +258,6 @@
             <span class="gbar-val">+0,19</span>
           </div>
           <p class="gbar-footnote">+ 25 estados com mudança menor que 0,15 p.p.</p>
-
-          <div class="growth-header mt">
-            <span class="dot-sm green"></span>
-            <span>Estados com anomalia estatística (&gt; 0,5 p.p.)</span>
-          </div>
-          <p class="gbar-empty">Nenhum estado no 1º ou no 2º turno</p>
         </div>
       </div>
     </aside>
@@ -241,7 +268,7 @@
       <div class="map-top-bar">
         <div class="map-status-pill" id="mapStatusPill">
           <span class="status-pill-dot"></span>
-          <span class="status-pill-text" id="mapCenterBadgeText">Estabilidade 1º vs 2º Turno · R² = 0,998 · 5 Regiões</span>
+          <span class="status-pill-text" id="mapCenterBadgeText">Estabilidade 1º vs 2º Turno · R² = 0,998 · 5 Regiões &amp; 557 Microrregiões</span>
         </div>
 
         <div class="region-filter-bar" id="regionFilterBar" aria-label="Filtrar por Macrorregião">
@@ -251,6 +278,14 @@
           <button class="reg-chip" data-region="CO">Centro-Oeste</button>
           <button class="reg-chip" data-region="SE">Sudeste</button>
           <button class="reg-chip" data-region="S">Sul</button>
+        </div>
+
+        <!-- Mobile Quick UF Selector (visible on mobile right below region chips) -->
+        <div class="mobile-uf-picker-row">
+          <label for="mobileUfSelect" class="mup-label">Estado (UF):</label>
+          <select id="mobileUfSelect" class="mup-select" aria-label="Selecionar Estado no Mobile">
+            <option value="BR">Brasil — Todas as 27 UFs</option>
+          </select>
         </div>
       </div>
 
@@ -276,47 +311,93 @@
         <!-- Hover Tooltip -->
         <div class="map-tooltip hidden" id="mapTooltip"></div>
 
-        <!-- Map Zoom & Layer Controls -->
+        <!-- Map Zoom Controls -->
         <div class="map-zoom-controls">
           <button class="zoom-btn" id="zoomInBtn" title="Aproximar mapa">+</button>
           <button class="zoom-btn" id="zoomResetBtn" title="Centralizar mapa">−</button>
         </div>
 
-        <!-- Bottom-Left Legend Card (Pandora style) -->
-        <div class="map-legend-card" id="mapLegendCard">
-          <div class="legend-row">
-            <span class="leg-sq left-sq" id="legSq1"></span>
-            <span class="leg-title" id="legText1"><strong>Com Biometria</strong> · 87,58% (2ºT)</span>
+        <!-- OFFICIAL CNFS BASE LOGO ORBITAL SEAL OVERLAY (Bottom-Left above Legend on Desktop, Full Showcase on Mobile) -->
+        <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="cnfs-orbital-seal-card" title="CNFS — Jorge Confessor de Moura Junior · Natal, Brazil">
+          <div class="orbital-patch">
+            <svg viewBox="0 0 200 200" class="orbital-ring-svg" aria-hidden="true">
+              <defs>
+                <path id="cnfs-patch-ring" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0"></path>
+              </defs>
+              <text class="orbital-ring-text" font-size="8.6">
+                <textPath href="#cnfs-patch-ring" textLength="526" lengthAdjust="spacing">JORGE CONFESSOR DE MOURA JUNIOR · CNFS · NATAL · BRAZIL · </textPath>
+              </text>
+            </svg>
+            <svg viewBox="0 0 120 120" class="orbital-core-svg" role="img" aria-label="CNFS Base Logo">
+              <defs>
+                <mask id="cnfs-seal-rear" maskUnits="userSpaceOnUse" x="-10" y="-10" width="140" height="140">
+                  <rect x="-10" y="-10" width="140" height="140" fill="#fff"></rect>
+                  <circle cx="60" cy="60" r="18" fill="#000"></circle>
+                  <path d="M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z" fill="#000" stroke="#000" stroke-width="6" stroke-linejoin="round"></path>
+                </mask>
+                <mask id="cnfs-seal-front" maskUnits="userSpaceOnUse" x="-10" y="-10" width="140" height="140">
+                  <rect x="-10" y="-10" width="140" height="140" fill="#fff"></rect>
+                  <path d="M3 60a57 8.5 0 0 0 114 0" fill="none" stroke="#000" stroke-width="9.5"></path>
+                </mask>
+              </defs>
+              <path d="M3 60a57 8.5 0 0 1 114 0" fill="none" stroke="#f4a949" stroke-width="4" stroke-linecap="round" opacity="0.58" mask="url(#cnfs-seal-rear)"></path>
+              <g fill="#f2ede4" mask="url(#cnfs-seal-front)">
+                <path d="M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z"></path>
+                <circle cx="60" cy="60" r="12.5"></circle>
+              </g>
+              <path d="M3 60a57 8.5 0 0 0 114 0" fill="none" stroke="#f4a949" stroke-width="4" stroke-linecap="round"></path>
+            </svg>
           </div>
-          <div class="legend-row">
-            <span class="leg-sq right-sq" id="legSq2"></span>
-            <span class="leg-title" id="legText2"><strong>Sem Biometria</strong> · 12,42% (Δ +0,07 p.p.)</span>
+          <div class="orbital-meta">
+            <svg viewBox="0 0 484 100" fill="#f2ede4" class="orbital-wordmark" aria-label="CNFS">
+              <path d="M118 0H50a50 50 0 0 0 0 100h68V87H50a37 37 0 0 1 0-74h68Z"></path>
+              <path d="M136 100V0h15.3L227 83.2V0h13v100h-15.3L149 16.8V100Z"></path>
+              <path d="M258 100V0h92v13h-79v30.5h65v13h-65V100Z"></path>
+              <path d="M484 0h-87.75a28.25 28.25 0 0 0 0 56.5h59.5a15.25 15.25 0 0 1 0 30.5H368v13h87.75a28.25 28.25 0 0 0 0-56.5h-59.5a15.25 15.25 0 0 1 0-30.5H484Z"></path>
+            </svg>
+            <span class="orbital-author">JORGE CONFESSOR</span>
+            <span class="orbital-sub">Software Engineering · Natal/BR</span>
           </div>
-          <div class="legend-scale">
-            <div class="scale-swatches" id="legendSwatches">
-              <span style="background:#065f46"></span>
-              <span style="background:#047857"></span>
-              <span style="background:#059669"></span>
-              <span style="background:#10b981"></span>
-              <span style="background:#34d399"></span>
-            </div>
-            <span class="scale-caption" id="legendScaleCaption">557 microrregiões · 5 regiões · 27 UFs</span>
-          </div>
-        </div>
+        </a>
 
-        <!-- Bottom-Right Quick Inspection Card (Pandora style) -->
-        <div class="map-summary-card" id="mapSummaryCard">
-          <div class="msc-top">
-            <span class="msc-tag" id="mscTag">RAIO-X REGIONAL · 5 MACRORREGIÕES</span>
-            <button class="msc-btn" id="mscOpenTableBtn">Ver 27 UFs →</button>
+        <!-- Map Bottom Cards Wrapper (Floating on Desktop, Cleanly Stacked on Mobile) -->
+        <div class="map-bottom-cards">
+          <!-- Bottom-Left Legend Card (Pandora style) -->
+          <div class="map-legend-card" id="mapLegendCard">
+            <div class="legend-row">
+              <span class="leg-sq left-sq" id="legSq1"></span>
+              <span class="leg-title" id="legText1"><strong>Com Biometria</strong> · 87,58% (2ºT)</span>
+            </div>
+            <div class="legend-row">
+              <span class="leg-sq right-sq" id="legSq2"></span>
+              <span class="leg-title" id="legText2"><strong>Sem Biometria</strong> · 12,42% (Δ +0,07 p.p.)</span>
+            </div>
+            <div class="legend-scale">
+              <div class="scale-swatches" id="legendSwatches">
+                <span style="background:#065f46"></span>
+                <span style="background:#047857"></span>
+                <span style="background:#059669"></span>
+                <span style="background:#10b981"></span>
+                <span style="background:#34d399"></span>
+              </div>
+              <span class="scale-caption" id="legendScaleCaption">557 microrregiões · 5 regiões · 27 UFs</span>
+            </div>
           </div>
-          <h3 class="msc-title" id="mscTitle">Brasil · 557 Microrregiões IBGE</h3>
-          <p class="msc-desc" id="mscDesc">
-            Clique em uma <strong>Região</strong> ou <strong>Estado</strong> no mapa para inspecionar o comparativo 1º vs 2º turno e votos após 17h00.
-          </p>
-          <div class="msc-foot" id="mscFoot">
-            <span>Fuso normalizado (UTC-3)</span>
-            <strong>34.330 votos &gt;17h (0,027%)</strong>
+
+          <!-- Bottom-Right Quick Inspection Card (Pandora style) -->
+          <div class="map-summary-card" id="mapSummaryCard">
+            <div class="msc-top">
+              <span class="msc-tag" id="mscTag">RAIO-X REGIONAL · 5 MACRORREGIÕES</span>
+              <button class="msc-btn" id="mscOpenTableBtn">Ver 27 UFs →</button>
+            </div>
+            <h3 class="msc-title" id="mscTitle">Brasil · 557 Microrregiões IBGE</h3>
+            <p class="msc-desc" id="mscDesc">
+              Toque em uma <strong>Região</strong> ou <strong>Estado</strong> no mapa para inspecionar o comparativo 1º vs 2º turno e votos após 17h00.
+            </p>
+            <div class="msc-foot" id="mscFoot">
+              <span>Fuso normalizado (UTC-3)</span>
+              <strong>34.330 votos &gt;17h (0,027%)</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -453,6 +534,39 @@
     </aside>
   </main>
 
+  <!-- MOBILE SIGNATURE BANNER WITH FULL CNFS BASE LOGO (VISIBLE ON MOBILE/TABLET) -->
+  <section class="mobile-cnfs-showcase">
+    <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="mcs-inner">
+      <div class="mcs-seal">
+        <svg viewBox="0 0 200 200" class="orbital-ring-svg" aria-hidden="true">
+          <defs>
+            <path id="cnfs-mob-ring" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0"></path>
+          </defs>
+          <text class="orbital-ring-text" font-size="8.6">
+            <textPath href="#cnfs-mob-ring" textLength="526" lengthAdjust="spacing">JORGE CONFESSOR DE MOURA JUNIOR · CNFS · NATAL · BRAZIL · </textPath>
+          </text>
+        </svg>
+        <svg viewBox="0 0 120 120" class="orbital-core-svg" role="img" aria-label="CNFS Base Logo">
+          <path d="M3 60a57 8.5 0 0 1 114 0" fill="none" stroke="#f4a949" stroke-width="4" stroke-linecap="round" opacity="0.58"></path>
+          <path d="M95.24 30.43A46 46 0 1 0 95.24 89.57L89.85 85.05A36 36 0 1 1 89.85 34.95Z" fill="#f2ede4"></path>
+          <circle cx="60" cy="60" r="12.5" fill="#f2ede4"></circle>
+          <path d="M3 60a57 8.5 0 0 0 114 0" fill="none" stroke="#f4a949" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+      </div>
+      <div class="mcs-info">
+        <span class="mcs-kicker">DESENVOLVIDO E AUDITADO POR</span>
+        <svg viewBox="0 0 484 100" fill="#f2ede4" class="mcs-wordmark" aria-label="CNFS">
+          <path d="M118 0H50a50 50 0 0 0 0 100h68V87H50a37 37 0 0 1 0-74h68Z"></path>
+          <path d="M136 100V0h15.3L227 83.2V0h13v100h-15.3L149 16.8V100Z"></path>
+          <path d="M258 100V0h92v13h-79v30.5h65v13h-65V100Z"></path>
+          <path d="M484 0h-87.75a28.25 28.25 0 0 0 0 56.5h59.5a15.25 15.25 0 0 1 0 30.5H368v13h87.75a28.25 28.25 0 0 0 0-56.5h-59.5a15.25 15.25 0 0 1 0-30.5H484Z"></path>
+        </svg>
+        <p class="mcs-name">Jorge Confessor de Moura Junior · Full-Stack Software Engineer</p>
+        <span class="mcs-link">Acessar cnfs-portfolio.vercel.app ↗</span>
+      </div>
+    </a>
+  </section>
+
   <!-- BOTTOM STATUS BAR -->
   <footer class="bottom-statusbar">
     <div class="bs-left">
@@ -460,7 +574,7 @@
       <span><strong>497.895 urnas auditadas</strong> · 27 UFs · 5 Macrorregiões · 557 Microrregiões IBGE</span>
     </div>
     <div class="bs-right">
-      <span>Dados oficiais do TSE (BU + logd.dat) · Apresentado por <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener">CNFS</a></span>
+      <span>Dados oficiais do TSE (BU + logd.dat) · Apresentado por <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener">CNFS (Jorge Confessor)</a></span>
     </div>
   </footer>
 
