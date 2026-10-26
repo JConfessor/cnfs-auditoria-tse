@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CNFS Auditoria TSE · Comparativo 1º vs 2º Turno (Presidente 2026)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- 1. TOPBAR (Pandora style + CNFS branding) -->
+    <header class="topbar">
+      <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" class="brand-cluster">
+        <!-- Official CNFS Emblem from cnfs-portfolio.vercel.app -->
+        <svg class="cnfs-emblem" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+          <path d="M 92.6 32.6 A 42.5 42.5 0 1 0 92.6 87.4" stroke="#f2ede4" stroke-width="4" stroke-linecap="round" opacity="0.72"></path>
+          <circle cx="60" cy="60" r="19" fill="#06070a" stroke="#f4a949" stroke-width="2.5"></circle>
+          <path d="M 10.7 51.3 A 50 13 10 0 1 109.2 68.7" stroke="#f4a949" stroke-width="4" stroke-linecap="round"></path>
+          <circle cx="60" cy="60" r="16" fill="#06070a"></circle>
+          <path d="M 109.2 68.7 A 50 13 10 0 1 10.7 51.3" stroke="#f4a949" stroke-width="4.5" stroke-linecap="round"></path>
+          <circle cx="96" cy="40" r="3" fill="#f4a949"></circle>
+        </svg>
+        <div class="brand-title">
+          <span class="brand-name">cnfs · auditoria</span>
+          <span class="brand-sub">TSE 2026 · 1º vs 2º Turno</span>
+        </div>
+      </a>
+
+      <!-- Center Mode Pills -->
+      <nav class="mode-pills" aria-label="Modo de Auditoria">
+        <button class="mode-pill active" data-mode="biometria" onclick="setDashboardMode('biometria')">
+          <span class="pill-dot" style="background:#3b82f6"></span>
+          Biometria (1º vs 2º Turno)
+        </button>
+        <button class="mode-pill" data-mode="apos17h" onclick="setDashboardMode('apos17h')">
+          <span class="pill-dot" style="background:#f4a949"></span>
+          Votos Após 17h (BRT)
+        </button>
+        <button class="mode-pill" data-mode="resultado" onclick="setDashboardMode('resultado')">
+          <span class="pill-dot" style="background:#10b981"></span>
+          Presidente (1º vs 2º Turno)
+        </button>
+      </nav>
+
+      <!-- Presented by CNFS -->
+      <div class="presented-by">
+        <span>Apresentado por</span>
+        <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener">
+          <svg width="56" height="13" viewBox="0 0 484 100" fill="#f2ede4">
+            <path d="M62.5 5.2C66.9 5.2 71.9 5.8 77.7 7.1C83.4 8.2 88.2 9.6 92.2 11.2L90.2 28.5C85.4 26.8 80.7 25.5 76.2 24.7C71.6 23.8 67.3 23.4 63.3 23.4C56.8 23.4 51.2 24.5 46.5 26.8C41.8 29.1 38.2 32.3 35.7 36.6C33.2 40.9 32 46 32 52C32 58 33.2 63.1 35.7 67.4C38.2 71.7 41.8 74.9 46.5 77.2C51.2 79.5 56.8 80.6 63.3 80.6C67.3 80.6 71.6 80.2 76.2 79.3C80.7 78.5 85.4 77.2 90.2 75.5L92.2 92.8C88.2 94.4 83.4 95.8 77.7 96.9C71.9 98.2 66.9 98.8 62.5 98.8C50.2 98.8 39.8 96.8 31.3 92.9C22.8 89 16.4 83.5 12.1 76.5C7.8 69.5 5.6 61.3 5.6 52C5.6 42.7 7.8 34.5 12.1 27.5C16.4 20.5 22.8 15 31.3 11.1C39.8 7.2 50.2 5.2 62.5 5.2ZM134.1 6.7H157.9L197.4 69.4V6.7H221.3V97.3H197.5L158 34.6V97.3H134.1V6.7ZM266.2 6.7H343.3V24.9H290.9V44.4H337.9V62.6H290.9V97.3H266.2V6.7ZM419.6 5.2C425.7 5.2 431.7 5.7 437.8 6.8C443.8 7.9 449.2 9.4 453.8 11.2L451.8 28.5C446.6 26.8 441.4 25.5 436.3 24.7C431.1 23.8 426.1 23.4 421.4 23.4C415.7 23.4 411.4 24.1 408.5 25.6C405.6 27.1 404.2 29.4 404.2 32.5C404.2 35.1 405.2 37.1 407.2 38.6C409.2 40.1 412.4 41.4 416.8 42.5L433.3 46.5C444.4 49.2 452.4 53.1 457.3 58.2C462.2 63.3 464.6 70.1 464.6 78.5C464.6 88.2 460.8 95.3 453.2 99.8C445.6 104.3 434.5 106.5 419.9 106.5C413.1 106.5 406.4 105.9 399.8 104.7C393.2 103.5 387.4 101.8 382.4 99.6L384.4 82.3C390.1 84.4 395.9 86 401.8 87.1C407.7 88.2 413.4 88.8 418.9 88.8C425.2 88.8 429.9 88 433 86.4C436.1 84.8 437.7 82.4 437.7 79.2C437.7 76.5 436.6 74.4 434.5 72.9C432.4 71.4 428.8 70 423.7 68.7L407.2 64.7C396.6 62.1 388.9 58.3 384.1 53.3C379.3 48.3 376.9 41.7 376.9 33.5C376.9 24.4 380.6 17.4 388 12.5C395.4 7.6 405.9 5.2 419.6 5.2Z" />
+          </svg>
+          <span style="color:var(--cnfs-amber)">↗</span>
+        </a>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="topbar-actions">
+        <button class="action-btn badge-verified" onclick="openTableModal()">
+          <span>✓</span> Probabilidade de Fraude: &lt; 0,001% (Baixíssima)
+        </button>
+        <button class="action-btn" onclick="openTableModal()">
+          <span>☷</span> Tabela 27 UFs
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. HERO COMPARISON BAR (Pandora Top Horizontal Progress Card) -->
+    <section class="hero-bar-card">
+      <div class="hero-top-row">
+        <!-- Left entity -->
+        <div class="hero-side left">
+          <div class="hero-icon-box left-tone" id="hero-left-icon">BIO</div>
+          <div>
+            <div class="hero-side-title">
+              <span id="hero-left-title">Com Biometria (Digital Reconhecida)</span>
+              <span class="hero-tag blue" id="hero-left-tag">✓ 1ºT: 87,65%</span>
+            </div>
+            <div class="hero-side-sub" id="hero-left-sub">
+              1º Turno: 109.505.685 votos · 2º Turno: 111.838.843 votos (+2.333.158)
+            </div>
+          </div>
+        </div>
+
+        <!-- Center verdict -->
+        <div class="hero-center-verdict">
+          <div class="verdict-headline" id="hero-verdict-headline">
+            <span class="highlight-green">Estabilidade Biométrica Comprovada</span> · Δ +0,07 p.p.
+          </div>
+          <div class="verdict-subpill" id="hero-verdict-subpill">
+            Correlação 1º vs 2º Turno nas 27 UFs: R² = 0,998 · Zero Anomalias Estatísticas
+          </div>
+        </div>
+
+        <!-- Right entity -->
+        <div class="hero-side right">
+          <div class="hero-icon-box right-tone" id="hero-right-icon">S/B</div>
+          <div>
+            <div class="hero-side-title">
+              <span class="hero-tag amber" id="hero-right-tag">1ºT: 12,35%</span>
+              <span id="hero-right-title">Sem Biometria (Falha 4x + Sem Cadastro)</span>
+            </div>
+            <div class="hero-side-sub" id="hero-right-sub">
+              1º Turno: 15.428.384 votos · 2º Turno: 15.858.427 votos (6,75% falha + 5,67% s/ cad.)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal dual progress bar -->
+      <div class="hero-bar-wrap">
+        <div class="hero-bar-left" id="hero-bar-left" style="width: 87.58%;">
+          <span class="bar-pct" id="hero-bar-left-pct">87,58%</span>
+          <span class="bar-votes" id="hero-bar-left-votes">111.838.843 votos (2ºT)</span>
+          <span class="bar-round1-ref" id="hero-bar-left-r1">1ºT: 87,65% (109.505.685)</span>
+        </div>
+        <div class="hero-bar-right" id="hero-bar-right" style="width: 12.42%;">
+          <span class="bar-votes" id="hero-bar-right-votes">15.858.427 votos</span>
+          <span class="bar-pct" id="hero-bar-right-pct">12,42%</span>
+        </div>
+        <div class="bar-center-marker" id="hero-bar-marker" style="left: 87.58%;">
+          <div class="bar-marker-line"></div>
+          <div class="bar-marker-pill" id="hero-bar-marker-pill">Δ +0,07 p.p.</div>
+        </div>
+      </div>
+
+      <div class="hero-bottom-meta">
+        <span id="hero-meta-left">Base oficial: 497.895 seções auditadas via logd.dat + Boletins de Urna (BU) — 124.934.069 eleitores (1ºT) vs 127.697.270 (2ºT)</span>
+        <span class="apured-ok">100% dos logs auditados · 27 UFs</span>
+      </div>
+    </section>
+
+    <!-- 3. MAIN 3-COLUMN WORKSPACE (Left: Consistency + Changes | Center: Map + Timeline | Right: UF Inspector + Audit Feed) -->
+    <main class="workspace-grid">
+      <!-- LEFT COLUMN -->
+      <aside class="col-left">
+        <!-- Top Left Card: Consistency & Statistical Proof -->
+        <div class="panel-card">
+          <div class="panel-title">
+            <span id="left-top-title">Consistência 1º vs 2º Turno</span>
+            <span style="font-family:var(--font-mono);font-size:10.5px;color:#34d399;">R² = 0,998</span>
+          </div>
+          <div class="panel-subtitle" id="left-top-subtitle">
+            Comparativo direto nos mesmos 5.570 municípios
+          </div>
+
+          <div class="round-compare-duel">
+            <div class="duel-side">
+              <div class="duel-label">
+                <span id="duel-left-lbl">1º Turno (04/10)</span>
+                <span style="color:#60a5fa">●</span>
+              </div>
+              <div class="duel-val blue" id="duel-left-val">87,65%</div>
+              <div class="duel-sub" id="duel-left-sub">12,35% s/ bio (15,42M)</div>
+            </div>
+            <div class="duel-side">
+              <div class="duel-label">
+                <span id="duel-right-lbl">2º Turno (25/10)</span>
+                <span style="color:#34d399">●</span>
+              </div>
+              <div class="duel-val green" id="duel-right-val">87,58%</div>
+              <div class="duel-sub" id="duel-right-sub">12,42% s/ bio (15,85M)</div>
+            </div>
+          </div>
+
+          <div class="status-dot-line">
+            <span class="dot"></span>
+            <span id="left-status-badge">Auditoria estatística encerrada · Sem desvios</span>
+          </div>
+
+          <div class="big-stat-callout">
+            <div class="big-stat-number" id="left-big-number">
+              0,027% <span>dos votos após as 17h00 BRT</span>
+            </div>
+            <div class="big-stat-desc" id="left-big-desc">
+              Apenas <strong>34.330 votos</strong> de <strong>127.697.270</strong> ocorreram após as 17h00 (horário de Brasília) no 2º turno — e a variação sem biometria entre o 1º e o 2º turno foi de apenas <strong>+0,07 p.p.</strong>
+            </div>
+          </div>
+
+          <!-- Mini SVG Chart: 1T vs 2T Stability Curve across 27 UFs -->
+          <div class="mini-chart-box">
+            <svg viewBox="0 0 270 105" width="100%" height="105" id="left-stability-svg">
+              <!-- Grid lines -->
+              <line x1="26" y1="15" x2="262" y2="15" stroke="rgba(255,255,255,0.07)" stroke-dasharray="2,2" />
+              <line x1="26" y1="50" x2="262" y2="50" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3,3" />
+              <line x1="26" y1="85" x2="262" y2="85" stroke="rgba(255,255,255,0.07)" stroke-dasharray="2,2" />
+              <text x="2" y="18" fill="#6b7280" font-size="8.5" font-family="JetBrains Mono">92%</text>
+              <text x="2" y="53" fill="#9ca3af" font-size="8.5" font-family="JetBrains Mono">88%</text>
+              <text x="2" y="88" fill="#6b7280" font-size="8.5" font-family="JetBrains Mono">82%</text>
+              <!-- 1T vs 2T lines across 27 UFs -->
+              <polyline id="svg-curve-1t" fill="none" stroke="#3b82f6" stroke-width="2" points="28,44 37,48 46,45 55,46 64,49 73,47 82,45 91,51 100,48 109,46 118,50 127,48 136,47 145,49 154,51 163,46 172,48 181,49 190,52 199,47 208,45 217,48 226,49 235,47 244,50 253,53 260,49" />
+              <polyline id="svg-curve-2t" fill="none" stroke="#10b981" stroke-width="1.8" stroke-dasharray="3,1.5" points="28,44.5 37,48.3 46,45.4 55,46.2 64,49.4 73,47.3 82,45.3 91,51.4 100,48.3 109,46.4 118,50.3 127,48.4 136,47.3 145,49.4 154,51.3 163,46.4 172,48.3 181,49.4 190,52.3 199,47.3 208,45.3 217,48.4 226,49.3 235,47.4 244,50.3 253,53.2 260,49.3" />
+              <circle cx="260" cy="49" r="3" fill="#10b981" />
+            </svg>
+            <div class="mini-chart-caption">
+              <span>AC → SP (27 UFs)</span>
+              <span style="color:#60a5fa">— 1º Turno</span>
+              <span style="color:#34d399">-- 2º Turno (sobreposto)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Left Card: "O que mudou desde o 1º turno" (Exact match to bottom-left of Pandora screenshot) -->
+        <div class="panel-card" style="flex:1;">
+          <div class="panel-title">
+            <span>O que mudou desde o 1º turno</span>
+          </div>
+          <div class="panel-subtitle">
+            Nas 497.895 seções apuradas, variação em pontos (p.p.)
+          </div>
+
+          <!-- Regional Matrix 1: Abstention change -->
+          <div class="reg-matrix">
+            <div class="reg-matrix-label">
+              <span>Abstenção, nos mesmos estados</span>
+              <span style="font-family:var(--font-mono);color:#34d399">+2,76M eleitores</span>
+            </div>
+            <div class="reg-grid">
+              <div><div class="reg-col-hdr">Brasil</div><div class="reg-col-val neg">-1,8</div></div>
+              <div><div class="reg-col-hdr">N</div><div class="reg-col-val pos">+1,9</div></div>
+              <div><div class="reg-col-hdr">NE</div><div class="reg-col-val neg">-1,8</div></div>
+              <div><div class="reg-col-hdr">SE</div><div class="reg-col-val neg">-2,4</div></div>
+              <div><div class="reg-col-hdr">S</div><div class="reg-col-val neg">-2,2</div></div>
+              <div><div class="reg-col-hdr">CO</div><div class="reg-col-val neg">-1,6</div></div>
+            </div>
+          </div>
+
+          <!-- Regional Matrix 2: Non-biometric delta -->
+          <div class="reg-matrix" style="margin-top:7px;">
+            <div class="reg-matrix-label">
+              <span>Variação Sem Biometria (1º → 2ºT)</span>
+              <span style="font-family:var(--font-mono);color:#60a5fa">Estável em todas</span>
+            </div>
+            <div class="reg-grid">
+              <div><div class="reg-col-hdr">Brasil</div><div class="reg-col-val neutral">+0,07</div></div>
+              <div><div class="reg-col-hdr">N</div><div class="reg-col-val neutral">+0,05</div></div>
+              <div><div class="reg-col-hdr">NE</div><div class="reg-col-val neutral">+0,07</div></div>
+              <div><div class="reg-col-hdr">SE</div><div class="reg-col-val neutral">+0,03</div></div>
+              <div><div class="reg-col-hdr">S</div><div class="reg-col-val neutral">+0,06</div></div>
+              <div><div class="reg-col-hdr">CO</div><div class="reg-col-val neutral">+0,06</div></div>
+            </div>
+          </div>
+
+          <!-- Dynamic Horizontal Bars -->
+          <div class="delta-bars-section" id="left-delta-bars">
+            <!-- Populated by app.js -->
+          </div>
+
+          <button class="more-states-btn" onclick="openTableModal()">
+            + Ver os 27 estados na tabela completa de auditoria →
+          </button>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: BRAZIL INTERACTIVE MAP + CALLOUTS + TIMELINE -->
+      <section class="col-center">
+        <!-- Top Floating Bar inside Map -->
+        <div class="map-top-controls">
+          <div class="map-floating-pill" id="map-top-pill">
+            <span class="pill-badge">✓</span>
+            <span id="map-pill-text"><strong>Consistência 1º vs 2º Turno</strong> · Variação máxima estadual &lt; 0,09 p.p.</span>
+          </div>
+
+          <div class="map-metric-selector">
+            <button class="map-metric-btn active" data-mapmode="biometria" onclick="setMapColorMode('biometria')">% Com Biometria</button>
+            <button class="map-metric-btn" data-mapmode="apos17h" onclick="setMapColorMode('apos17h')">Votos &gt;17h BRT</button>
+            <button class="map-metric-btn" data-mapmode="vencedor" onclick="setMapColorMode('vencedor')">Resultado 2ºT (PT/PL)</button>
+          </div>
+        </div>
+
+        <!-- SVG Map of Brazil (27 UFs + Right Callouts RN, PB, PE, AL, SE and ES, RJ) -->
+        <div class="map-canvas-wrap">
+          <svg id="brazil-map-svg" viewBox="0 0 740 625" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <filter id="glow-soft" x="-15%" y="-15%" width="130%" height="130%">
+                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+              </filter>
+            </defs>
+            <g id="map-paths-layer" filter="url(#glow-soft)"></g>
+            <g id="map-callouts-layer"></g>
+            <g id="map-labels-layer"></g>
+          </svg>
+        </div>
+
+        <!-- Bottom Overlay Cards inside Map Stage (Legend Left + Proof Card Right, like Pandora screenshot) -->
+        <div class="map-overlays-row">
+          <div class="map-legend-card" id="map-legend-card">
+            <div class="legend-row">
+              <span class="legend-swatch" style="background:#2563eb" id="leg-sw-1"></span>
+              <span id="leg-txt-1"><strong>Com Biometria:</strong> 111.838.843 (87,58%)</span>
+            </div>
+            <div class="legend-row">
+              <span class="legend-swatch" style="background:#f59e0b" id="leg-sw-2"></span>
+              <span id="leg-txt-2"><strong>Falha 4x (Mesário):</strong> 8.615.564 (6,75%)</span>
+            </div>
+            <div class="legend-row">
+              <span class="legend-swatch" style="background:#dc2626" id="leg-sw-3"></span>
+              <span id="leg-txt-3"><strong>Sem Cadastro Bio:</strong> 7.242.863 (5,67%)</span>
+            </div>
+            <div class="legend-scale">
+              <div class="scale-chips" id="leg-scale-chips">
+                <span class="scale-chip" style="background:#1e3a8a"></span>
+                <span class="scale-chip" style="background:#1d4ed8"></span>
+                <span class="scale-chip" style="background:#2563eb"></span>
+                <span class="scale-chip" style="background:#3b82f6"></span>
+              </div>
+              <span id="leg-scale-caption">82% · 86% · 90% · 93%+ com biometria</span>
+            </div>
+          </div>
+
+          <div class="map-proof-card">
+            <div class="proof-card-kicker">
+              <span>PROVA FÍSICA · LOGD.DAT TSE</span>
+              <span>497.895 URNAS</span>
+            </div>
+            <div class="proof-card-title">Por que levou 67s sem biometria?</div>
+            <div class="proof-card-sub">
+              4 tentativas de digital na urna + conferência física do documento + digital do próprio mesário levam <strong>67s</strong> (vs <strong>29s</strong> com biometria).
+            </div>
+            <div class="proof-card-footer">
+              <span style="color:#34d399;font-family:var(--font-mono)">✓ Art. 153 Código Eleitoral</span>
+              <button onclick="setDashboardMode('apos17h')">Ver prova dos 34.330 votos →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Timeline Bar (17:00 to 23:55 BRT, matching the timeline at the bottom of Pandora screenshot) -->
+        <div class="timeline-bar">
+          <div class="timeline-clock" id="timeline-clock-display">17:00:00 BRT</div>
+          <div class="timeline-track-wrap">
+            <div class="timeline-track">
+              <div class="timeline-progress" id="timeline-progress-bar" style="width: 100%;"></div>
+              <div class="timeline-node active" style="left: 5%;" onclick="selectTimelineMilestone(0)" title="Até 17:00 BRT: 99,973% dos votos"></div>
+              <div class="timeline-node" style="left: 24%;" onclick="selectTimelineMilestone(1)" title="17:00–17:15 BRT: 8.654 já identificados antes das 17h + fila com senha"></div>
+              <div class="timeline-node" style="left: 44%;" onclick="selectTimelineMilestone(2)" title="17:15–17:30 BRT: Queda exponencial de filas"></div>
+              <div class="timeline-node" style="left: 65%;" onclick="selectTimelineMilestone(3)" title="17:30–18:00 BRT: Apenas 216 seções residuais"></div>
+              <div class="timeline-node" style="left: 84%;" onclick="selectTimelineMilestone(4)" title="18:00–19:00 BRT: 65 seções (contingência/substituição)"></div>
+              <div class="timeline-node" style="left: 97%;" onclick="selectTimelineMilestone(5)" title="Até 23:55 BRT: 6 seções (Acre/Amazonas/RS)"></div>
+            </div>
+            <div class="timeline-ticks">
+              <span>Até 17:00 (99,973%)</span>
+              <span>17:15 (81% pós-17h)</span>
+              <span>17:30</span>
+              <span>18:00</span>
+              <span>19:00</span>
+              <span>23:55 BRT</span>
+            </div>
+          </div>
+          <div class="timeline-badge" id="timeline-status-pill">● 34.330 votos &gt;17h (0,027%)</div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: STATE X-RAY + TECHNICAL AUDIT FEED -->
+      <aside class="col-right">
+        <div class="right-panel-full">
+          <!-- Selected UF / Brazil X-Ray Inspector -->
+          <div class="uf-inspector-card">
+            <div class="uf-inspector-header">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="uf-badge-pill" id="insp-uf-code">BR</span>
+                <div>
+                  <div class="uf-inspector-name" id="insp-uf-name">Brasil (27 UFs Consolidadas)</div>
+                  <div style="font-size:10.5px;color:var(--text-muted);" id="insp-uf-meta">497.895 seções · Fuso normalizado para Brasília (UTC-3)</div>
+                </div>
+              </div>
+              <button class="uf-reset-btn" id="insp-reset-btn" onclick="selectUF(null)" style="display:none;">Voltar p/ Brasil</button>
+            </div>
+
+            <div class="uf-kpi-grid">
+              <div class="uf-kpi-box">
+                <div class="uf-kpi-lbl">Com Biometria (2ºT)</div>
+                <div class="uf-kpi-val" style="color:#60a5fa" id="insp-kpi-bio2">87,58%</div>
+                <div class="uf-kpi-sub" id="insp-kpi-bio1">1ºT: 87,65% (109,5M)</div>
+              </div>
+              <div class="uf-kpi-box">
+                <div class="uf-kpi-lbl">Sem Biometria (2ºT)</div>
+                <div class="uf-kpi-val" style="color:var(--cnfs-amber)" id="insp-kpi-sembio2">12,42%</div>
+                <div class="uf-kpi-sub" id="insp-kpi-sembio1">1ºT: 12,35% (Δ +0,07 pp)</div>
+              </div>
+              <div class="uf-kpi-box">
+                <div class="uf-kpi-lbl">Votos &gt;17h00 BRT</div>
+                <div class="uf-kpi-val" style="color:#34d399" id="insp-kpi-ap17">34.330</div>
+                <div class="uf-kpi-sub" id="insp-kpi-ap17-sub">0,027% do total (5.469 s/ bio)</div>
+              </div>
+              <div class="uf-kpi-box">
+                <div class="uf-kpi-lbl">Falha Digital 4x (2ºT)</div>
+                <div class="uf-kpi-val" id="insp-kpi-falha">8.615.564</div>
+                <div class="uf-kpi-sub" id="insp-kpi-falha-sub">1ºT: 8.342.249 (6,68%)</div>
+              </div>
+              <div class="uf-kpi-box">
+                <div class="uf-kpi-lbl">Sem Cadastro Bio (2ºT)</div>
+                <div class="uf-kpi-val" id="insp-kpi-semcad">7.242.863</div>
+                <div class="uf-kpi-sub" id="insp-kpi-semcad-sub">1ºT: 7.086.135 (5,67%)</div>
+              </div>
+              <div class="uf-kpi-box">
+                <div class="uf-kpi-lbl">Presidente 2ºT (13 vs 22)</div>
+                <div class="uf-kpi-val" id="insp-kpi-pres">51,8% / 48,2%</div>
+                <div class="uf-kpi-sub" id="insp-kpi-pres-sub">1ºT: 45,2% vs 47,0%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Audit Feed (Replaces Live Chat with interactive log proofs) -->
+          <div class="audit-feed-card">
+            <div class="feed-header">
+              <div class="panel-title">
+                <span>Auditoria Técnica dos Logs</span>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10.5px;color:#34d399;">● 7 provas verificadas</span>
+            </div>
+
+            <!-- Filter chips -->
+            <div class="feed-filter-row">
+              <button class="feed-chip active" data-filter="all" onclick="filterAuditFeed('all')">Todas as Provas</button>
+              <button class="feed-chip" data-filter="biometria" onclick="filterAuditFeed('biometria')">Biometria 1º vs 2ºT</button>
+              <button class="feed-chip" data-filter="apos17h" onclick="filterAuditFeed('apos17h')">Horário &gt;17h BRT</button>
+              <button class="feed-chip" data-filter="fuso" onclick="filterAuditFeed('fuso')">Fuso Horário</button>
+              <button class="feed-chip" data-filter="secoes" onclick="filterAuditFeed('secoes')">Seções Críticas</button>
+            </div>
+
+            <div class="feed-items-list" id="audit-feed-list">
+              <!-- Populated by app.js -->
+            </div>
+
+            <!-- Quick state search at bottom of right column (like chat input in screenshot) -->
+            <div class="feed-search-box">
+              <span style="color:var(--text-dim)">⌕</span>
+              <input type="text" id="uf-quick-search" placeholder="Filtrar provas ou buscar UF (ex: SP, AM, AC, MG, BA)..." oninput="handleQuickSearch(this.value)" />
+              <button class="uf-reset-btn" onclick="openTableModal()">27 UFs ↗</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- 4. FOOTER STATUS BAR -->
+    <footer class="bottom-statusbar">
+      <div class="status-left">
+        <span class="pulse-green"></span>
+        <span><strong>497.895 seções auditadas</strong> · Logs brutos das urnas (<code>logd.dat</code>) + Boletins de Urna (<code>BU</code>) · Eleição Presidencial 2026</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span>Horário Oficial de Brasília (UTC-3)</span>
+        <a href="https://cnfs-portfolio.vercel.app" target="_blank" rel="noopener" style="color:var(--cnfs-amber);text-decoration:none;font-weight:600;">cnfs-portfolio.vercel.app</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- FULL 27-UF INTERACTIVE TABLE MODAL -->
+  <div class="modal-backdrop" id="table-modal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div>
+          <div style="font-size:16px;font-weight:700;color:#fff;">Matriz Completa de Auditoria — 27 UFs (1º Turno vs 2º Turno · Presidente 2026)</div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px;">Clique em qualquer cabeçalho para ordenar ou em uma UF para inspecionar no mapa</div>
+        </div>
+        <button class="action-btn" onclick="closeTableModal()">✕ Fechar tabela</button>
+      </div>
+      <div class="modal-body">
+        <table class="audit-table" id="full-uf-table">
+          <thead>
+            <tr>
+              <th onclick="sortModalTable('uf')">UF ↕</th>
+              <th onclick="sortModalTable('regiao')">Região ↕</th>
+              <th onclick="sortModalTable('comp_1t')">Votos 1ºT ↕</th>
+              <th onclick="sortModalTable('comp_2t')">Votos 2ºT ↕</th>
+              <th onclick="sortModalTable('pct_com_bio_1t')">% Com Bio 1ºT ↕</th>
+              <th onclick="sortModalTable('pct_com_bio_2t')">% Com Bio 2ºT ↕</th>
+              <th onclick="sortModalTable('pct_sem_bio_1t')">% Sem Bio 1ºT ↕</th>
+              <th onclick="sortModalTable('pct_sem_bio_2t')">% Sem Bio 2ºT ↕</th>
+              <th onclick="sortModalTable('delta_sb_pp')">Δ Sem Bio (p.p.) ↕</th>
+              <th onclick="sortModalTable('biom_sem_hab_1t')">Falha 4x (1ºT) ↕</th>
+              <th onclick="sortModalTable('biom_sem_hab_2t')">Falha 4x (2ºT) ↕</th>
+              <th onclick="sortModalTable('votos_ap_17h_2t')">Votos &gt;17h BRT (2ºT) ↕</th>
+              <th onclick="sortModalTable('pct_ap_17h_2t')">% &gt;17h BRT ↕</th>
+              <th onclick="sortModalTable('lula_2t_p')">Lula 2ºT (%) ↕</th>
+              <th onclick="sortModalTable('flavio_2t_p')">Flávio 2ºT (%) ↕</th>
+            </tr>
+          </thead>
+          <tbody id="full-uf-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
